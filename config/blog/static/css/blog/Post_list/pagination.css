@@ -1,0 +1,84 @@
+/* استایل pagination */
+
+/* container اصلی pagination */
+.pagination-wrapper {
+    display: flex; /* نمایش به صورت flexbox */
+    justify-content: center; /* تراز مرکزی افقی */
+    margin-top: 2rem; /* فاصله از بالا */
+    padding: 1rem 0; /* پدینگ عمودی */
+}
+
+/* container داخلی pagination */
+.pagination-container {
+    display: flex; /* نمایش به صورت flexbox */
+    align-items: center; /* تراز عمودی مرکزی */
+    gap: 0.5rem; /* فاصله بین عناصر */
+    flex-wrap: wrap; /* شکستن خط در صفحات کوچک */
+    justify-content: center; /* تراز مرکزی افقی */
+}
+
+/* استایل پیش‌فرض لینک‌های pagination */
+.pagination-link {
+    display: flex; /* نمایش به صورت flexbox */
+    align-items: center; /* تراز عمودی مرکزی */
+    justify-content: center; /* تراز افقی مرکزی */
+    min-width: 40px; /* حداقل عرض */
+    height: 40px; /* ارتفاع ثابت */
+    padding: 0.5rem; /* پدینگ داخلی */
+    border-radius: 8px; /* گرد کردن گوشه‌ها */
+    font-weight: 600; /* ضخامت فونت */
+    text-decoration: none; /* حذف خط زیر لینک */
+    transition: all 0.3s ease; /* انیمیشن تغییرات */
+    color: var(--fg); /* رنگ متن از متغیر تم */
+    background-color: var(--bg); /* رنگ پس‌زمینه از متغیر تم */
+    border: 2px solid var(--act); /* border از متغیر تم */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* سایه نرم */
+}
+
+/* استایل لینک‌های pagination در حالت hover */
+.pagination-link:hover:not(.current-page) {
+    background-color: var(--ac); /* تغییر رنگ پس‌زمینه به رنگ اصلی */
+    color: var(--white); /* تغییر رنگ متن به سفید */
+    transform: translateY(-2px); /* حرکت کمی به بالا */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* سایه تیره‌تر */
+}
+
+/* استایل صفحه فعلی */
+.current-page {
+    background-color: var(--ac); /* رنگ پس‌زمینه آبی */
+    color: var(--white); /* رنگ متن سفید */
+    border-color: var(--ac); /* رنگ border */
+    font-weight: 700; /* ضخامت فونت بیشتر */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* سایه تیره‌تر */
+}
+
+/* استایل لینک‌های قبلی و بعدی */
+.prev-next {
+    min-width: 80px; /* عرض بیشتر برای لینک‌های قبلی و بعدی */
+    background-color: var(--act2); /* رنگ پس‌زمینه از متغیر تم */
+    border-color: var(--act2); /* رنگ border */
+}
+
+/* استایل ellipsis (سه نقطه) */
+.pagination-ellipsis {
+    color: var(--fg3); /* رنگ متن از متغیر تم */
+    padding: 0 0.5rem; /* پدینگ افقی */
+    font-weight: 600; /* ضخامت فونت */
+}
+
+/* استایل responsive برای صفحات کوچک */
+@media (max-width: 550px) {
+    .pagination-link {
+        min-width: 35px; /* کاهش عرض در صفحات کوچک */
+        height: 35px; /* کاهش ارتفاع در صفحات کوچک */
+        font-size: var(--fs-4); /* کاهش اندازه فونت */
+    }
+
+    .prev-next {
+        min-width: 70px; /* کاهش عرض لینک‌های قبلی و بعدی */
+    }
+
+    .pagination-container {
+        gap: 0.25rem; /* کاهش فاصله بین عناصر */
+    }
+}

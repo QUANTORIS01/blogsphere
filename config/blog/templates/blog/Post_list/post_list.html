@@ -1,0 +1,154 @@
+{% extends "parent/base.html" %}
+{% load static %}
+{% load blog_tags %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/blog/Post_list/post_list.css' %}">
+{% endblock %}
+{%block title%}List of posts{%endblock%}
+{%block content%}
+<main>
+    <div class="main">
+        <div class="container">
+            <div class="blog">
+                {% if category %}
+                <h2 class="h2">List of posts '{{ category }}'</h2>
+                {% else %}
+                <h2 class="h2">Full list of blogs</h2>
+                {% endif %}
+
+                <div class="blog-card-group">
+                    {% for post in posts %}
+                    <div class="blog-card">
+                        <div class="blog-card-banner">
+                            {% if post.banner %}
+                            <img src="{{ post.banner.url }}" alt="{{ post.title }}" class="blog-banner-img">
+                            {% else %}
+                            <img src="{% static 'images/Default-list-post.jpg' %}" alt="blog" class="blog-banner-img">
+                            {% endif %}
+                        </div>
+                        <div class="blog-content-wrapper">
+                            <button class="blog-topic text-tiny">
+                                <a href="{% url 'blog:post_list_category' post.category %}">{{ post.category }}</a>
+                            </button>
+                            <h3>
+                                <a href="{{ post.get_absolute_url }}" class="h3">
+                                    {{ post.title }}
+                                </a>
+                            </h3>
+                            <p class="blog-text">
+                                {{ post.description | secure_truncate:150 }}
+                            </p>
+                            <div class="wrapper-flex">
+                                <div class="profile-wrapper">
+                                    <a href="{% url 'accounts:user_detail' post.author.username %}">
+                                        {% if post.author.account.avatar %}
+                                        <img src="{{ post.author.account.avatar.url }}" alt="{{ post.author.username }}"
+                                             width="50" class="author-post-list">
+                                        {% else %}
+                                        <img src="{% static 'images/Default-profile.jpg' %}"
+                                             alt="{{ post.author.username }}" width="50" class="author-post-list">
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="wrapper">
+                                    <a href="{% url 'accounts:user_detail' post.author.username %}" class="h4">{{
+                                        post.author }}</a>
+                                    <div class="text-small">
+                                        <ion-icon name="time-outline"></ion-icon>
+                                        <time datetime="PT3M">{{ post.publish }}</time>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% include "blog/Post_list/pagination.html" with page=posts %}
+                </div>
+            </div>
+
+            <div class="aside">
+                <div class="topics">
+                    <h2 class="h2">Topics</h2>
+                    <a href="{% url 'blog:post_list_category' 'Database' %}" class="topic-btn">
+                        <div class="icon-box">
+                            <ion-icon name="server-outline"></ion-icon>
+                        </div>
+                        <p>Database</p>
+                    </a>
+                    <a href="{% url 'blog:post_list_category' 'Technology' %}" class="topic-btn">
+                        <div class="icon-box">
+                            <ion-icon name="code-outline"></ion-icon>
+                        </div>
+                        <p>Technology</p>
+                    </a>
+                    <a href="{% url 'blog:post_list_category' 'Programming' %}" class="topic-btn">
+                        <div class="icon-box">
+                            <ion-icon name="laptop-outline"></ion-icon>
+                        </div>
+                        <p>Programming</p>
+                    </a>
+                    <a href="{% url 'blog:post_list_category' 'Design' %}" class="topic-btn">
+                        <div class="icon-box">
+                            <ion-icon name="color-palette-outline"></ion-icon>
+                        </div>
+                        <p>Design</p>
+                    </a>
+                    <a href="{% url 'blog:post_list_category' 'AI' %}" class="topic-btn">
+                        <div class="icon-box">
+                            <ion-icon name="hardware-chip-outline"></ion-icon>
+                        </div>
+                        <p>AI</p>
+                    </a>
+                    <a href="{% url 'blog:post_list_category' 'Blockchain' %}" class="topic-btn">
+                        <div class="icon-box">
+                            <ion-icon name="cash-outline"></ion-icon>
+                        </div>
+                        <p>Blockchain</p>
+                    </a>
+                    <a href="{% url 'blog:post_list_category' 'Other' %}" class="topic-btn">
+                        <div class="icon-box">
+                            <ion-icon name="help-outline"></ion-icon>
+                        </div>
+                        <p>Other</p>
+                    </a>
+                </div>
+                <div class="tags">
+                    <h2 class="h2">Tags</h2>
+                    <div class="wrapper">
+                        <button class="hashtag">#Python</button>
+                        <button class="hashtag">#Data Management</button>
+                        <button class="hashtag">#WordPress</button>
+                    </div>
+                </div>
+                <div class="content">
+                    <h2 class="h2">Let's talk.</h2>
+                    <div class="wrapper">
+                        <p>
+                            Would you like to know more about how I can help your company overcome challenges? Let's
+                            have a conversation.
+                        </p>
+                        <ul class="social-link">
+                            <a href="#" class="icon-box twitter">
+                                <ion-icon name="logo-twitter"></ion-icon>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+                <div class="newsletter">
+                    <h2 class="h2">Newsletter</h2>
+                    <div class="wrapper">
+                        <p>
+                            Subscribe to our newsletter to be among the first to know about the latest updates.
+                        </p>
+                        <form action="">
+                            <input type="email" placeholder="Email address"/>
+                            <button class="btn btn-primayr">Membership</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

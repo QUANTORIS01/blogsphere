@@ -1,0 +1,134 @@
+.login-wrapper {
+    min-height: calc(100vh - 2 * var(--padding-y));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg2);
+    padding: 2rem 0;
+}
+
+.login-card {
+    background-color: var(--bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    transition: all 0.3s ease;
+}
+
+.login-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header .h2 {
+    margin-bottom: 0.5rem;
+    color: var(--fg);
+}
+
+.login-header p {
+    color: var(--fg3);
+    font-size: var(--fs-4);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--fg2);
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--act2);
+    border-radius: 8px;
+    background-color: var(--bg);
+    color: var(--fg);
+    font-size: var(--fs-4);
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--ac);
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--ac);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: var(--fs-4);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-login:hover {
+    background-color: var(--ac2);
+    transform: translateY(-2px);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+.login-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    font-size: var(--fs-4);
+}
+
+.login-links a {
+    color: var(--ac);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-links a:hover {
+    color: var(--ac2);
+    text-decoration: underline;
+}
+
+.alert {
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: var(--fs-4);
+}
+
+.alert-error {
+    background-color: #fee;
+    border: 1px solid #fcc;
+    color: #c33;
+}
+
+.dark-theme .login-card {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dark-theme .login-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.dark-theme .alert-error {
+    background-color: #4c1d1d;
+    border-color: #742a2a;
+    color: #f56565;
+}

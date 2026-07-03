@@ -1,0 +1,35 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/blog/Post_list/pagination.css' %}">
+<div class="pagination-wrapper">
+    <div class="pagination-container">
+        {% if page.has_previous %}
+            <a href="?page={{ page.previous_page_number }}" class="pagination-link prev-next">
+                <span>« Previous</span>
+            </a>
+        {% endif %}
+        {% if page.number > 3 %}
+            <a href="?page=1" class="pagination-link">1</a>
+            {% if page.number > 4 %}
+                <span class="pagination-ellipsis">...</span>
+            {% endif %}
+        {% endif %}
+        {% for num in page.paginator.page_range %}
+            {% if page.number == num %}
+                <span class="pagination-link current-page">{{ num }}</span>
+            {% elif num > page.number|add:'-3' and num < page.number|add:'3' %}
+                <a href="?page={{ num }}" class="pagination-link">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page.has_next %}
+            {% if page.number < page.paginator.num_pages|add:'-3' %}
+                <span class="pagination-ellipsis">...</span>
+                <a href="?page={{ page.paginator.num_pages }}" class="pagination-link">{{ page.paginator.num_pages }}</a>
+            {% elif page.number < page.paginator.num_pages|add:'-2' %}
+                <a href="?page={{ page.paginator.num_pages }}" class="pagination-link">{{ page.paginator.num_pages }}</a>
+            {% endif %}
+            <a href="?page={{ page.next_page_number }}" class="pagination-link prev-next">
+                <span>Next »</span>
+            </a>
+        {% endif %}
+    </div>
+</div>

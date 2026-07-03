@@ -1,0 +1,90 @@
+{% load static %}
+{% load blog_tags %}
+<link rel="stylesheet" href="{% static 'css/partials/header.css' %}">
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <div class="flex-wrapper">
+                <ul class="desktop-nav">
+                    <button class="theme-btn theme-btn-desktop light">
+                        <ion-icon name="moon-outline"></ion-icon>
+                        <ion-icon name="sunny-outline"></ion-icon>
+                    </button>
+                    <li><a href="{% url 'blog:index' %}" class="nav-link">Home</a></li>
+                    <li><a href="#" class="nav-link">Contact Us</a></li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="#" class="nav-link profile-link">
+                            <div class="profile-wrapper">
+                                {% if request.user.account.avatar %}
+                                <img src="{{request.user.account.avatar.url}}"
+                                     alt="Profile Image" width="30" class="profile-image">
+                                {% else %}
+                                <img src="{% static 'images/Default-profile.jpg' %}"
+                                     alt="Profile Image" width="30"
+                                     class="profile-image">
+                                {% endif %}
+                            </div>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'accounts:login' %}" class="nav-link">Log In / Sign Up</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button class="nav-menu-btn">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <button class="theme-btn theme-btn-mobile light">
+                    <ion-icon name="moon-outline" class="moon"></ion-icon>
+                    <ion-icon name="sunny-outline" class="sun"></ion-icon>
+                </button>
+            </div>
+            <form method="get" action="#" class="search-box">
+                <button class="search-icon">
+                    <ion-icon name="search-outline"></ion-icon>
+                </button>
+                <input type="text" name="query" placeholder="Search..." required autocomplete="off">
+            </form>
+            <a href="#">
+                <img src="{% static 'images/logo.png' %}" alt="" width="100" class="logo-light">
+                <img src="{% static 'images/logo.png' %}" alt="" width="100" class="logo-dark">
+            </a>
+            <div class="mobile-menu">
+                <button class="nav-close-btn">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+                <div class="wrapper">
+                    <p class="h3 nav-title">Main menu</p>
+                    <ul>
+                        <li class="nav-item">
+                            <a href="{% url 'blog:index' %}" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="h3 nav-title">Topics</p>
+                    <ul>
+                        <li class="nav-item">
+                            <a href="{% url 'blog:post_list' %}" class="nav-link">Posts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">User List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

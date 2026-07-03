@@ -1,0 +1,20 @@
+{% extends "parent/base.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/registration/register_done.css' %}">
+{% endblock %}
+{% block title %}Register Done{% endblock %}
+{% block content %}
+<main>
+    <div class="main">
+        <div class="container-register-done">
+            <h1 class="title-register-done">{{ user }} dear</h1>
+            <p class="description-register-done">
+                You have successfully registered.
+            </p>
+            <a href="{% url 'accounts:login' %}">Login</a>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

@@ -5,7 +5,62 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="053b54fe-bf11-438d-9924-258d499d4005" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/config/accounts/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/login.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_change_done.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_change_form.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_reset_complete.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_reset_confirm.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_reset_done.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_reset_form.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/register.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/register_done.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_change_done.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_change_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_reset_complete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_reset_confirm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_reset_done.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_reset_email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_reset_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/register_done.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/migrations/0002_post_saved_by.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/css/base.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/css/blog/Detail/post_detail.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/css/blog/Home/Home.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/css/blog/Post_list/pagination.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/css/blog/Post_list/post_list.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/css/partials/footer.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/css/partials/header.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/images/Default-list-post.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/images/Default-popular-post.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/images/Default-post.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/images/Default-profile.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/images/Default-search.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/images/author.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/images/icon_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/static/js/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/templates/blog/Detail/post_detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/templates/blog/Home/Home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/templates/blog/Post_list/pagination.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/templates/blog/Post_list/post_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/templates/parent/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/templates/partials/footer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/templates/partials/header.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/templatetags/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/templatetags/blog_tags.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/blog/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/blog/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/blog/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/blog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/blog/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/blog/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/config/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/config/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +71,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -24,61 +82,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000020162317094" />
-      <entry key="S5" value="1.0242000547897316" />
-      <entry key="S10" value="1.6995903300890443" />
-      <entry key="S30" value="10.584758734651619" />
-      <entry key="S60" value="23.27554836626009" />
-      <entry key="M2" value="39.927061541223814" />
-      <entry key="M5" value="69.08200343122856" />
-      <entry key="M10" value="96.78570523371914" />
-      <entry key="M15" value="116.91273934317839" />
-      <entry key="M30" value="164.66218144742618" />
-      <entry key="H1" value="234.6386926244229" />
-      <entry key="H2" value="324.1079289826905" />
-      <entry key="H4" value="413.1456257555731" />
-      <entry key="D1" value="538.8896515418022" />
-      <entry key="W1" value="567.896149914089" />
+      <entry key="MS100" value="1.0203334749256265" />
+      <entry key="MS500" value="1.501382804277156" />
+      <entry key="S2" value="3.19131476130341" />
+      <entry key="S5" value="5.56903603500528" />
+      <entry key="S10" value="7.7147402364631645" />
+      <entry key="S30" value="10.657625374748044" />
+      <entry key="S60" value="12.24306503325378" />
+      <entry key="M2" value="13.9802136430509" />
+      <entry key="M5" value="16.125902437911183" />
+      <entry key="M10" value="19.337463668432065" />
+      <entry key="M15" value="23.653095658595028" />
+      <entry key="M30" value="37.08043216067911" />
+      <entry key="H1" value="62.321863721384936" />
+      <entry key="H2" value="127.8218343032166" />
+      <entry key="H4" value="262.86008543485195" />
+      <entry key="D1" value="616.136588433842" />
+      <entry key="W1" value="728.8640091392598" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="5.426745911305982E-150" />
-      <entry key="S5" value="3.004250270284349E-60" />
-      <entry key="S10" value="2.7297039696337092E-30" />
-      <entry key="S30" value="2.817240194196104E-10" />
-      <entry key="S60" value="2.900105427619237E-5" />
-      <entry key="M2" value="0.0096111160342403" />
-      <entry key="M5" value="0.3883652226447042" />
-      <entry key="M10" value="1.7124422824583982" />
-      <entry key="M15" value="3.0551943999634137" />
-      <entry key="M30" value="6.603501727127468" />
-      <entry key="H1" value="14.344171707916153" />
-      <entry key="H2" value="28.433707700034724" />
-      <entry key="H4" value="44.34054029694842" />
-      <entry key="D1" value="67.64139587729767" />
-      <entry key="W1" value="73.04855648744932" />
+      <entry key="MS500" value="1.5653752340251723E-132" />
+      <entry key="S2" value="1.1185479717071512E-33" />
+      <entry key="S5" value="6.598752595815851E-14" />
+      <entry key="S10" value="2.5688037285506757E-7" />
+      <entry key="S30" value="0.006356874550913694" />
+      <entry key="S60" value="0.07973001050010474" />
+      <entry key="M2" value="0.2824044601047033" />
+      <entry key="M5" value="0.6926604821075668" />
+      <entry key="M10" value="2.178190013492834" />
+      <entry key="M15" value="4.579290597870771" />
+      <entry key="M30" value="11.623151514631314" />
+      <entry key="H1" value="20.357289715990305" />
+      <entry key="H2" value="31.22791971480171" />
+      <entry key="H4" value="49.0968298838065" />
+      <entry key="D1" value="97.7620109629852" />
+      <entry key="W1" value="113.94023708977153" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8585654364377537" />
-      <entry key="MS500" value="0.9699619103417348" />
-      <entry key="S2" value="0.9924063819547745" />
-      <entry key="S5" value="1.021096558468545" />
-      <entry key="S10" value="1.69635924481967" />
-      <entry key="S30" value="10.57031611229184" />
-      <entry key="S60" value="23.258164332004785" />
-      <entry key="M2" value="39.92146499888962" />
-      <entry key="M5" value="69.45752813174977" />
-      <entry key="M10" value="98.48434963518822" />
-      <entry key="M15" value="119.95365801189563" />
-      <entry key="M30" value="171.25142617687885" />
-      <entry key="H1" value="248.96885611553185" />
-      <entry key="H2" value="352.5290612108987" />
-      <entry key="H4" value="457.47685978003835" />
-      <entry key="D1" value="606.5287712945195" />
-      <entry key="W1" value="640.9443573412283" />
+      <entry key="MS100" value="0.13077692507504488" />
+      <entry key="MS500" value="1.1328678265231653" />
+      <entry key="S2" value="3.044020957190752" />
+      <entry key="S5" value="5.465010760161416" />
+      <entry key="S10" value="7.633592186098891" />
+      <entry key="S30" value="10.618170420767918" />
+      <entry key="S60" value="12.282019388733907" />
+      <entry key="M2" value="14.22428890797041" />
+      <entry key="M5" value="16.791952173863823" />
+      <entry key="M10" value="21.49014195885135" />
+      <entry key="M15" value="28.2033130032399" />
+      <entry key="M30" value="48.670973024915654" />
+      <entry key="H1" value="82.650802816171" />
+      <entry key="H2" value="159.02862586306298" />
+      <entry key="H4" value="311.9418222924038" />
+      <entry key="D1" value="713.8943252591213" />
+      <entry key="W1" value="842.8035562685524" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -90,24 +148,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mcsrayan\Desktop\Resume\Resume_project_blogsphere\config\blog\templates\parent" />
+      <recent name="C:\Users\mcsrayan\Desktop\Resume\Resume_project_blogsphere\config\blog\templates" />
+      <recent name="C:\Users\mcsrayan\Desktop\Resume\Resume_project_blogsphere\config\blog\static\css\blog" />
+      <recent name="C:\Users\mcsrayan\Desktop\Resume\Resume_project_blogsphere\config\blog\static\css" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

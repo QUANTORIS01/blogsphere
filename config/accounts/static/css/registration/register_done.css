@@ -1,0 +1,35 @@
+.main {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-register-done {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    background: var(--act);
+    box-shadow: 5px 10px 20px var(--fg);
+    border-radius: 10px;
+}
+
+.title-register-done {
+    text-align: center;
+    color: var(--fg3);
+}
+
+.description-register-done {
+    color: var(--fg);
+}
+
+.container-register-done a {
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--ac2);
+    color: white;
+}
