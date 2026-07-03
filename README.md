@@ -1,4 +1,4 @@
-Blogsphere
+# Blogsphere
 
 Blogsphere is one of my early Django projects, originally built during my backend development learning journey.
 
@@ -12,7 +12,7 @@ Although the project itself was originally developed much earlier, it was never 
 
 This repository represents a reconstructed and documented version of that original work, allowing me to preserve the project, practice version control, and showcase an important milestone in my growth as a developer.
 
-Features
+## Features
 
 - Custom User Model
 - Authentication System
@@ -28,13 +28,13 @@ Features
 - Template Inheritance
 - Django Admin Integration
 
-Project Status
+## Project Status
 
 This project is preserved as a learning milestone and a reflection of my early Django experience.
 
 My current primary focus is the development of WSS Platform, a significantly larger full-stack project where I am applying the knowledge and experience gained from projects like Blogsphere.
 
-Future improvements may include:
+## Future improvements may include:
 
 - Codebase refactoring
 - UI/UX redesign
