@@ -14,9 +14,9 @@
                     <li><a href="#" class="nav-link">Contact Us</a></li>
                     {% if user.is_authenticated %}
                     <li>
-                        <a href="#" class="nav-link profile-link">
+                        <a href="{% url 'accounts:dashboard' %}" class="nav-link profile-link">
                             <div class="profile-wrapper">
-                                {% if request.user.account.avatar %}
+                                {% if request.user.avatar %}
                                 <img src="{{request.user.account.avatar.url}}"
                                      alt="Profile Image" width="30" class="profile-image">
                                 {% else %}

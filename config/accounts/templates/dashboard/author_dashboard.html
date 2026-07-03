@@ -1,0 +1,277 @@
+{% extends "parent/base.html" %}
+{% load static %}
+{% load blog_tags %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/dashboard/author_dashboard.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block title %}Author Dashboard{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main">
+        <div class="dashboard-with-sidebar">
+        <div class="container">
+            <div class="author-dashboard">
+                <div class="dashboard-wrapper">
+                    <div class="dashboard-header">
+                        <h1><i class="fas fa-feather-alt"></i>Author Dashboard</h1>
+                        <p>Welcome, {{ user.get_full_name|default:user.username }}</p>
+                        <div class="user-welcome">
+                            {% if user.avatar %}
+                            <img src="{{ user.avatar.url }}" alt="Avatar" class="user-avatar">
+                            {% else %}
+                            <i class="fas fa-user-circle fa-3x"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="quick-actions-section">
+                        <h2 class="section-title"><i class="fas fa-bolt"></i>Rapid actions</h2>
+                        <div class="quick-actions">
+                            <div class="action-card write-post" onclick="location.href='{% url 'blog:create_post' %}'">
+                                <i class="fas fa-pen-fancy"></i>
+                                <h3>Write a new post</h3>
+                                <p>Creating new content and sharing your ideas</p>
+                            </div>
+                            <div class="action-card edit-profile" onclick="location.href='{% url 'accounts:edit_account'%}'">
+                            <i class="fas fa-user-edit"></i>
+                            <h3>Edit Profile</h3>
+                            <p>Updating personal information and author profile</p>
+                        </div>
+                        <div class="action-card manage-posts" onclick="location.href='#'">
+                            <i class="fas fa-book-open"></i>
+                            <h3>Post Management</h3>
+                            <p>View, edit, and manage all your posts.</p>
+                        </div>
+                        <div class="action-card view-analytics" onclick="location.href='#'">
+                            <i class="fas fa-chart-pie"></i>
+                            <h3>Statistics and Analysis</h3>
+                            <p>View statistics on visits and the popularity of your content.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon published">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-header-content">
+                            <h3>Published posts</h3>
+                            <p>Verified and published content</p>
+                        </div>
+                        <div class="stat-number">{{ post_published.count }}</div>
+                        <div class="stat-content">The number of posts you have published on your blog</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon draft">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-header-content">
+                            <h3>Posts under review</h3>
+                            <p>Items awaiting approval</p>
+                        </div>
+                        <div class="stat-number">{{ post_draft.count }}</div>
+                        <div class="stat-content">Your submitted posts that have not yet been reviewed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon rejected">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="stat-header-content">
+                            <h3>Rejected posts</h3>
+                            <p>Unverified information</p>
+                        </div>
+                        <div class="stat-number">{{ post_rejected.count }}</div>
+                        <div class="stat-content">Posts that need rewriting</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon likes">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-header-content">
+                            <h3>Liked posts</h3>
+                            <p>Content you have liked</p>
+                        </div>
+                        <div class="stat-number">{{ like_post.count }}</div>
+                        <div class="stat-content">Number of posts you have liked</div>
+                    </div>
+                </div>
+
+                <div class="posts-section">
+                    <div class="posts-section-header">
+                        <h2><i class="fas fa-newspaper"></i>Your posts</h2>
+                        <a href="#" class="view-all-link">
+                            <i class="fas fa-external-link-alt"></i>View all
+                        </a>
+                    </div>
+
+                    <h3 style="color: #2ecc71; margin: 1.5rem 0 1rem 0; font-size: 1.4rem;">
+                        <i class="fas fa-check"></i> Published ({{ post_published.count }})
+                    </h3>
+                    {% if post_published %}
+                    <div class="posts-grid">
+                        {% for post in post_published|slice:":3" %}
+                        <div class="post-item">
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.description|secure_truncate:110 }}</p>
+                            <small><i class="fas fa-calendar"></i> Published in: {{ post.publish }}</small>
+                            <div class="post-actions">
+                                <a href="{{ post.get_absolute_url }}" class="btn btn-primary">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if post_published.count > 3 %}
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="#" class="view-all-link">View all published posts</a>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div class="no-data">
+                        <i class="fas fa-newspaper"></i>
+                        <p>You haven't published any posts yet.</p>
+                    </div>
+                    {% endif %}
+
+                    <h3 style="color: #f39c12; margin: 2rem 0 1rem 0; font-size: 1.4rem;">
+                        <i class="fas fa-clock"></i> Under review ({{ post_draft.count }})
+                    </h3>
+                    {% if post_draft %}
+                    <div class="posts-grid">
+                        {% for post in post_draft|slice:":3" %}
+                        <div class="post-item">
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.description|secure_truncate:110 }}</p>
+                            <small><i class="fas fa-calendar"></i> Created on: {{ post.created|date:'Y/m/d H:i' }}</small>
+                            <div class="post-actions">
+                                <a href="{% url 'blog:edit_post' post.id %}" class="btn btn-warning">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a href="{% url 'blog:post_detail_draft' post.id %}" class="btn btn-info">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                                <a href="{% url 'blog:delete_post' post.id %}" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if post_draft.count > 3 %}
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="#" class="view-all-link">View all posts under review</a>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div class="no-data">
+                        <i class="fas fa-clock"></i>
+                        <p>You have no posts under review.</p>
+                    </div>
+                    {% endif %}
+
+                    <h3 style="color: #e74c3c; margin: 2rem 0 1rem 0; font-size: 1.4rem;">
+                        <i class="fas fa-times"></i> Rejected ({{ post_rejected.count }})
+                    </h3>
+                    {% if post_rejected %}
+                    <div class="posts-grid">
+                        {% for post in post_rejected|slice:":3" %}
+                        <div class="post-item">
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.description|secure_truncate:110 }}</p>
+                            <small><i class="fas fa-calendar"></i> Rejected in: {{ post.updated}}</small>
+                            <div class="post-actions">
+                                <a href="{% url 'blog:edit_post' post.id %}" class="btn btn-warning">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a href="{% url 'blog:post_detail_reject' post.id %}" class="btn btn-info">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                                <a href="{% url 'blog:delete_post' post.id %}" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if post_rejected.count > 3 %}
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="#" class="view-all-link">View all rejected posts</a>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div class="no-data">
+                        <i class="fas fa-check"></i>
+                        <p>No post has been rejected.</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="activity-section">
+
+                    <div class="activity-card">
+                        <div class="activity-card-header">
+                            <h3><i class="fas fa-heart"></i>Liked posts</h3>
+                        </div>
+                        <div class="item-list">
+                            {% if like_post %}
+                            {% for like in like_post|slice:":5" %}
+                            <div class="item">
+                                <h4>{{ like }}</h4>
+                                <small><i class="fas fa-clock"></i> Liked on: {{ like.created }}</small>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="no-data">
+                                <i class="fas fa-heart"></i>
+                                <p>You haven't liked the post.</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-card-header">
+                            <h3><i class="fas fa-bookmark"></i>Saved posts</h3>
+                        </div>
+                        <div class="item-list">
+                            {% if saved_posts %}
+                            {% for post in saved_posts|slice:":5" %}
+                            <div class="item">
+                                <a href="{{ post.get_absolute_url }}">
+                                <h4>{{ post.title|truncatewords:5 }}</h4>
+                                <small><i class="fas fa-user"></i> Author: {{ post.author.get_full_name|default:post.author.username }}</small>
+                                </a>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="no-data">
+                                <i class="fas fa-bookmark"></i>
+                                <p>You haven't saved any posts.</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--act2);">
+                    <a href="{% url 'accounts:logout' %}"
+                       style="display: inline-block; margin: 0 1rem; padding: 0.8rem 1.5rem; background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; text-decoration: none; border-radius: 12px; font-weight: 500; transition: all 0.3s ease;">
+                        <i class="fas fa-sign-out-alt"></i> Exit
+                    </a>
+                    <a href="{% url 'accounts:password_change' %}"
+                       style="display: inline-block; margin: 0 1rem; padding: 0.8rem 1.5rem; background: linear-gradient(135deg, var(--ac), var(--ac2)); color: white; text-decoration: none; border-radius: 12px; font-weight: 500; transition: all 0.3s ease;">
+                        <i class="fas fa-key"></i>Change Password
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

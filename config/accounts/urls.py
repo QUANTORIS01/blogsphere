@@ -5,7 +5,6 @@ from django.contrib.auth import views as auth_views
 
 app_name = 'accounts'
 
-
 urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(authentication_form=LoginForm), name='login'),
@@ -18,4 +17,6 @@ urlpatterns = [
          auth_views.PasswordResetConfirmView.as_view(success_url='/accounts/password-reset/complete'),
          name='password_reset_confirm'),
     path('password-reset/complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    
 ]

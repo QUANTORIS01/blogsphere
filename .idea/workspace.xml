@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="053b54fe-bf11-438d-9924-258d499d4005" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/dashboard/admin_dashboard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/dashboard/author_dashboard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/dashboard/user_dashboard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/dashboard/admin_dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/dashboard/author_dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/accounts/templates/dashboard/user_dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/accounts/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/blog/templates/partials/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/config/blog/templates/partials/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/blog/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/config/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,61 +38,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.3850332128571692" />
-      <entry key="MS500" value="2.5580367510255058" />
-      <entry key="S2" value="4.187754840735801" />
-      <entry key="S5" value="5.256940718850245" />
-      <entry key="S10" value="6.768947726145983" />
-      <entry key="S30" value="11.637517800627467" />
-      <entry key="S60" value="14.950831354259085" />
-      <entry key="M2" value="17.9674533209038" />
-      <entry key="M5" value="21.158168982647624" />
-      <entry key="M10" value="24.750268341031692" />
-      <entry key="M15" value="29.173154569562108" />
-      <entry key="M30" value="42.703974137503096" />
-      <entry key="H1" value="68.00568088914774" />
-      <entry key="H2" value="133.49793203911577" />
-      <entry key="H4" value="268.52720712352334" />
-      <entry key="D1" value="622.0065570728851" />
-      <entry key="W1" value="734.8420341811778" />
+      <entry key="MS100" value="1.0000000000033944" />
+      <entry key="MS500" value="1.0050835116995571" />
+      <entry key="S2" value="1.2952004037343676" />
+      <entry key="S5" value="2.0105052625276465" />
+      <entry key="S10" value="2.8694257333256434" />
+      <entry key="S30" value="4.082077435653962" />
+      <entry key="S60" value="4.772277733691842" />
+      <entry key="M2" value="6.167086547918898" />
+      <entry key="M5" value="10.988221956913067" />
+      <entry key="M10" value="17.436982902647642" />
+      <entry key="M15" value="22.66605908901413" />
+      <entry key="M30" value="36.29380061949107" />
+      <entry key="H1" value="62.18623285395426" />
+      <entry key="H2" value="121.05560426121112" />
+      <entry key="H4" value="250.06728808860493" />
+      <entry key="D1" value="651.7658271813161" />
+      <entry key="W1" value="793.7819486889756" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="2.3027504007979018E-148" />
-      <entry key="S2" value="1.2318610303822374E-37" />
-      <entry key="S5" value="1.7227596316421184E-15" />
-      <entry key="S10" value="4.150613968610089E-8" />
-      <entry key="S30" value="0.0034623485143187517" />
-      <entry key="S60" value="0.058841724372097406" />
-      <entry key="M2" value="0.24260700497310098" />
-      <entry key="M5" value="0.6518281691677583" />
-      <entry key="M10" value="2.1130127595669665" />
-      <entry key="M15" value="4.487479135721424" />
-      <entry key="M30" value="11.506043673046646" />
-      <entry key="H1" value="20.254476222162975" />
-      <entry key="H2" value="31.148962357156332" />
-      <entry key="H4" value="49.03472184896418" />
-      <entry key="D1" value="97.74138841888929" />
-      <entry key="W1" value="113.93680316750941" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="1.489210219900508E-308" />
+      <entry key="S10" value="1.7051972060203324E-154" />
+      <entry key="S30" value="8.77860495822043E-52" />
+      <entry key="S60" value="4.188694967567119E-26" />
+      <entry key="M2" value="2.8941293714098454E-13" />
+      <entry key="M5" value="1.4686824412382043E-5" />
+      <entry key="M10" value="0.006038175774076957" />
+      <entry key="M15" value="0.05883204715259333" />
+      <entry key="M30" value="1.0469607414540874" />
+      <entry key="H1" value="5.980436281612631" />
+      <entry key="H2" value="17.056108072802676" />
+      <entry key="H4" value="36.52396164970311" />
+      <entry key="D1" value="94.3023621002803" />
+      <entry key="W1" value="115.01104647784001" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.16083888336833" />
-      <entry key="MS500" value="2.079097097682202" />
-      <entry key="S2" value="3.9587781394581096" />
-      <entry key="S5" value="5.148579313108053" />
-      <entry key="S10" value="6.700365112211655" />
-      <entry key="S30" value="11.596917382587863" />
-      <entry key="S60" value="14.969945073350793" />
-      <entry key="M2" value="18.172295002461208" />
-      <entry key="M5" value="21.783015221328128" />
-      <entry key="M10" value="26.83756200436561" />
-      <entry key="M15" value="33.631496001987045" />
-      <entry key="M30" value="54.17741196153034" />
-      <entry key="H1" value="88.2317877691383" />
-      <entry key="H2" value="164.62573870438928" />
-      <entry key="H4" value="317.54681455876374" />
-      <entry key="D1" value="719.7436655087678" />
-      <entry key="W1" value="848.7781464451529" />
+      <entry key="MS100" value="6.905339688766414E-4" />
+      <entry key="MS500" value="0.23817530092811778" />
+      <entry key="S2" value="0.9809737508666218" />
+      <entry key="S5" value="1.8276585976346578" />
+      <entry key="S10" value="2.7339774480890093" />
+      <entry key="S30" value="4.013420273973628" />
+      <entry key="S60" value="4.732592537025049" />
+      <entry key="M2" value="6.141238391688389" />
+      <entry key="M5" value="10.968391598763699" />
+      <entry key="M10" value="17.42827529650593" />
+      <entry key="M15" value="22.713181926799734" />
+      <entry key="M30" value="37.33138843633169" />
+      <entry key="H1" value="68.15509453570489" />
+      <entry key="H2" value="138.09858615306786" />
+      <entry key="H4" value="286.5792068996045" />
+      <entry key="D1" value="746.0639196050819" />
+      <entry key="W1" value="908.7922774024428" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -116,6 +126,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mcsrayan\Desktop\Resume\Resume_project_blogsphere\config\accounts\static\css" />
       <recent name="C:\Users\mcsrayan\Desktop\Resume\Resume_project_blogsphere\config\blog\templates\parent" />
       <recent name="C:\Users\mcsrayan\Desktop\Resume\Resume_project_blogsphere\config\blog\templates" />
       <recent name="C:\Users\mcsrayan\Desktop\Resume\Resume_project_blogsphere\config\blog\static\css\blog" />

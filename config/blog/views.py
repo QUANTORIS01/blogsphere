@@ -94,3 +94,5 @@ def save_post(request):
             saved = True
         return JsonResponse({'saved': saved})
     return JsonResponse({'error': 'Invalid post id'})
+
+
