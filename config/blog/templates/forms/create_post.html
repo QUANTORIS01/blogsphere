@@ -1,0 +1,126 @@
+{% extends "parent/base.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/forms/create_post.css' %}">
+{{ form.media }}
+{% endblock %}
+{% block title %}{% if post %}Edit post{% else %}Add Post{% endif %}{% endblock %}
+{% block content %}
+<main>
+    <div class="main">
+        <div class="create-post-container">
+            {% if post %}
+                <h1 class="create-post-title create-post-edit-mode">
+                    <i class="fas fa-edit"></i> Edit post
+                    <span class="edit-indicator">Currently editing: {{ post.title }}</span>
+                </h1>
+            {% else %}
+                <h1 class="create-post-title create-post-create-mode">
+                    <i class="fas fa-plus-circle"></i> Create a new post
+                </h1>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}" class="form-label">
+                        <i class="fas fa-heading"></i>Post Title
+                    </label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="error-message">{{ form.title.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}" class="form-label">
+                        <i class="fas fa-pen"></i>Description
+                    </label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <div class="error-message">{{ form.description.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-image"></i> Banner image
+                    </label>
+                    <div class="file-upload-wrapper">
+                        <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                        <label for="{{ form.banner.id_for_label }}" class="file-upload-label">
+                            Click to select an image or drag the file here.
+                        </label>
+                        {{ form.banner }}
+                        {% if post and post.banner %}
+                            <div class="current-image-preview">
+                                <p><strong>Current image:</strong></p>
+                                <img src="{{ post.banner.url }}" alt="Current image" class="preview-img">
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if form.banner.errors %}
+                        <div class="error-message">{{ form.banner.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}" class="form-label">
+                        <i class="fas fa-folder"></i>Category
+                    </label>
+                    <div class="category-select">
+                        {{ form.category }}
+                    </div>
+                    {% if form.category.errors %}
+                        <div class="error-message">{{ form.category.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.tags.id_for_label }}" class="form-label">
+                        <i class="fas fa-tags"></i>Tags
+                    </label>
+                    <div class="tag-input">
+                        {{ form.tags }}
+                    </div>
+                    <small class="form-help">Each tag must be separated by a comma (,).</small>
+                    {% if form.tags.errors %}
+                        <div class="error-message">{{ form.tags.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.read_time.id_for_label }}" class="form-label">
+                        <i class="fas fa-clock"></i>Reading time (minutes)
+                    </label>
+                    <div class="read-time-input">
+                        {{ form.read_time }}
+                    </div>
+                    {% if form.read_time.errors %}
+                        <div class="error-message">{{ form.read_time.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-actions">
+                    {% if post %}
+                        <button type="submit" class="submit-btn submit-btn-update">
+                            <i class="fas fa-sync-alt"></i>Update post
+                        </button>
+                        <a href="{% url 'accounts:dashboard' %}" class="cancel-btn">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    {% else %}
+                        <button type="submit" class="submit-btn submit-btn-create">
+                            <i class="fas fa-paper-plane"></i> Publishing the post
+                        </button>
+                        <a href="{% url 'blog:index' %}" class="cancel-btn">
+                            <i class="fas fa-arrow-right"></i> Return
+                        </a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

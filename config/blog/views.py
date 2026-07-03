@@ -1,10 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.db.models import Count, F
+from .forms import *
 from .models import *
+
 
 
 def index(request):
@@ -96,3 +98,39 @@ def save_post(request):
     return JsonResponse({'error': 'Invalid post id'})
 
 
+
+@login_required
+def create_post(request):
+    if request.method == 'POST':
+        form = CreatePostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            form.save_m2m()
+            return redirect('accounts:dashboard')
+    else:
+        form = CreatePostForm()
+    return render(request, 'forms/create_post.html', {'form': form})
+
+
+@login_required
+def edit_post(request, post_id):
+    author_post = Post.objects.filter(author=request.user)
+    post = get_object_or_404(author_post, id=post_id)
+    if request.method == 'POST':
+        form = CreatePostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            if post.status == Post.Status.REJECT:
+                post.status = Post.Status.DRAFT
+            post.save()
+            return redirect('accounts:dashboard')
+    else:
+        form = CreatePostForm(instance=post)
+    context = {
+        'form': form,
+        'post': post
+    }
+    return render(request, 'forms/create_post.html', context)
