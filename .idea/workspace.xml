@@ -5,62 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="053b54fe-bf11-438d-9924-258d499d4005" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/config/accounts/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_change_done.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_change_form.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_reset_complete.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_reset_confirm.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_reset_done.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/password_reset_form.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/register.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/static/css/registration/register_done.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_change_done.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_change_form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_reset_complete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_reset_confirm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_reset_done.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_reset_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/password_reset_form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/templates/registration/register_done.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/accounts/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/migrations/0002_post_saved_by.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/css/base.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/css/blog/Detail/post_detail.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/css/blog/Home/Home.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/css/blog/Post_list/pagination.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/css/blog/Post_list/post_list.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/css/partials/footer.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/css/partials/header.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/images/Default-list-post.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/images/Default-popular-post.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/images/Default-post.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/images/Default-profile.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/images/Default-search.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/images/author.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/images/icon_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/images/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/static/js/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/templates/blog/Detail/post_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/templates/blog/Home/Home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/templates/blog/Post_list/pagination.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/templates/blog/Post_list/post_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/templates/parent/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/templates/partials/footer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/templates/partials/header.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/templatetags/blog_tags.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/blog/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/blog/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/blog/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/blog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/blog/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/blog/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/config/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,61 +28,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0203334749256265" />
-      <entry key="MS500" value="1.501382804277156" />
-      <entry key="S2" value="3.19131476130341" />
-      <entry key="S5" value="5.56903603500528" />
-      <entry key="S10" value="7.7147402364631645" />
-      <entry key="S30" value="10.657625374748044" />
-      <entry key="S60" value="12.24306503325378" />
-      <entry key="M2" value="13.9802136430509" />
-      <entry key="M5" value="16.125902437911183" />
-      <entry key="M10" value="19.337463668432065" />
-      <entry key="M15" value="23.653095658595028" />
-      <entry key="M30" value="37.08043216067911" />
-      <entry key="H1" value="62.321863721384936" />
-      <entry key="H2" value="127.8218343032166" />
-      <entry key="H4" value="262.86008543485195" />
-      <entry key="D1" value="616.136588433842" />
-      <entry key="W1" value="728.8640091392598" />
+      <entry key="MS100" value="1.3850332128571692" />
+      <entry key="MS500" value="2.5580367510255058" />
+      <entry key="S2" value="4.187754840735801" />
+      <entry key="S5" value="5.256940718850245" />
+      <entry key="S10" value="6.768947726145983" />
+      <entry key="S30" value="11.637517800627467" />
+      <entry key="S60" value="14.950831354259085" />
+      <entry key="M2" value="17.9674533209038" />
+      <entry key="M5" value="21.158168982647624" />
+      <entry key="M10" value="24.750268341031692" />
+      <entry key="M15" value="29.173154569562108" />
+      <entry key="M30" value="42.703974137503096" />
+      <entry key="H1" value="68.00568088914774" />
+      <entry key="H2" value="133.49793203911577" />
+      <entry key="H4" value="268.52720712352334" />
+      <entry key="D1" value="622.0065570728851" />
+      <entry key="W1" value="734.8420341811778" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="1.5653752340251723E-132" />
-      <entry key="S2" value="1.1185479717071512E-33" />
-      <entry key="S5" value="6.598752595815851E-14" />
-      <entry key="S10" value="2.5688037285506757E-7" />
-      <entry key="S30" value="0.006356874550913694" />
-      <entry key="S60" value="0.07973001050010474" />
-      <entry key="M2" value="0.2824044601047033" />
-      <entry key="M5" value="0.6926604821075668" />
-      <entry key="M10" value="2.178190013492834" />
-      <entry key="M15" value="4.579290597870771" />
-      <entry key="M30" value="11.623151514631314" />
-      <entry key="H1" value="20.357289715990305" />
-      <entry key="H2" value="31.22791971480171" />
-      <entry key="H4" value="49.0968298838065" />
-      <entry key="D1" value="97.7620109629852" />
-      <entry key="W1" value="113.94023708977153" />
+      <entry key="MS500" value="2.3027504007979018E-148" />
+      <entry key="S2" value="1.2318610303822374E-37" />
+      <entry key="S5" value="1.7227596316421184E-15" />
+      <entry key="S10" value="4.150613968610089E-8" />
+      <entry key="S30" value="0.0034623485143187517" />
+      <entry key="S60" value="0.058841724372097406" />
+      <entry key="M2" value="0.24260700497310098" />
+      <entry key="M5" value="0.6518281691677583" />
+      <entry key="M10" value="2.1130127595669665" />
+      <entry key="M15" value="4.487479135721424" />
+      <entry key="M30" value="11.506043673046646" />
+      <entry key="H1" value="20.254476222162975" />
+      <entry key="H2" value="31.148962357156332" />
+      <entry key="H4" value="49.03472184896418" />
+      <entry key="D1" value="97.74138841888929" />
+      <entry key="W1" value="113.93680316750941" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.13077692507504488" />
-      <entry key="MS500" value="1.1328678265231653" />
-      <entry key="S2" value="3.044020957190752" />
-      <entry key="S5" value="5.465010760161416" />
-      <entry key="S10" value="7.633592186098891" />
-      <entry key="S30" value="10.618170420767918" />
-      <entry key="S60" value="12.282019388733907" />
-      <entry key="M2" value="14.22428890797041" />
-      <entry key="M5" value="16.791952173863823" />
-      <entry key="M10" value="21.49014195885135" />
-      <entry key="M15" value="28.2033130032399" />
-      <entry key="M30" value="48.670973024915654" />
-      <entry key="H1" value="82.650802816171" />
-      <entry key="H2" value="159.02862586306298" />
-      <entry key="H4" value="311.9418222924038" />
-      <entry key="D1" value="713.8943252591213" />
-      <entry key="W1" value="842.8035562685524" />
+      <entry key="MS100" value="1.16083888336833" />
+      <entry key="MS500" value="2.079097097682202" />
+      <entry key="S2" value="3.9587781394581096" />
+      <entry key="S5" value="5.148579313108053" />
+      <entry key="S10" value="6.700365112211655" />
+      <entry key="S30" value="11.596917382587863" />
+      <entry key="S60" value="14.969945073350793" />
+      <entry key="M2" value="18.172295002461208" />
+      <entry key="M5" value="21.783015221328128" />
+      <entry key="M10" value="26.83756200436561" />
+      <entry key="M15" value="33.631496001987045" />
+      <entry key="M30" value="54.17741196153034" />
+      <entry key="H1" value="88.2317877691383" />
+      <entry key="H2" value="164.62573870438928" />
+      <entry key="H4" value="317.54681455876374" />
+      <entry key="D1" value="719.7436655087678" />
+      <entry key="W1" value="848.7781464451529" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
