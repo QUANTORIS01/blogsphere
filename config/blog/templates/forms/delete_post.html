@@ -1,0 +1,51 @@
+{% extends "parent/base.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/forms/delete_post.css' %}">
+{% endblock %}
+{% block title %}Delete post - {{ post.title }}{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main">
+        <div class="container">
+            <div class="delete-form-container">
+                <div class="delete-header">
+                    <h2 class="h2">⚠️ Confirm post deletion</h2>
+                </div>
+
+                <div class="delete-body">
+                    <div class="warning-message">
+                        <p>About deleting the post "<strong>{{ post.title }}</strong>" Are you sure?</p>
+                        <p class="text-small">This operation is irreversible, and all the post's content will be permanently deleted.
+                        </p>
+                    </div>
+
+                    <div class="post-summary">
+                        {% if post.banner %}
+                        <img src="{{ post.banner.url }}" alt="{{ post.title }}" class="post-banner-preview">
+                        {% endif %}
+                        <div class="post-details">
+                            <p><span class="detail-label">Author:</span> {{ post.author.username }}</p>
+                            <p><span class="detail-label">Date Sent:</span> {{ post.publish|date:'Y/m/d' }}</p>
+                            <p><span class="detail-label">Status:</span>
+                                {% if post.status == 'PB' %}Published
+                                {% elif post.status == 'DF' %}Draft
+                                {% else %}Rejected{% endif %}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="delete-actions">
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-delete">Yes, delete the post.</button>
+                            <a href="{% url 'blog:post_detail' post.pk %}" class="btn btn-cancel">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

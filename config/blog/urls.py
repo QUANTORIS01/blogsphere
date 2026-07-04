@@ -12,5 +12,6 @@ urlpatterns = [
     path('save-post/', views.save_post, name='save_posts'),
     path('dashboard/create-post', views.create_post, name='create_post'),
     path('dashboard/create-post/<post_id>', views.edit_post, name='edit_post'),
+    path('dashboard/delete-post/<post_id>', views.delete_post, name='delete_post'),
 
 ]

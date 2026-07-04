@@ -40,9 +40,9 @@
                             </p>
                             <div class="wrapper-flex">
                                 <div class="profile-wrapper">
-                                    <a href="{% url 'accounts:user_detail' post.author.username %}">
-                                        {% if post.author.account.avatar %}
-                                        <img src="{{ post.author.account.avatar.url }}" alt="{{ post.author.username }}"
+                                    <a href="#">
+                                        {% if post.author.avatar %}
+                                        <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}"
                                              width="50" class="author-post-list">
                                         {% else %}
                                         <img src="{% static 'images/Default-profile.jpg' %}"
@@ -51,11 +51,11 @@
                                     </a>
                                 </div>
                                 <div class="wrapper">
-                                    <a href="{% url 'accounts:user_detail' post.author.username %}" class="h4">{{
-                                        post.author }}</a>
+                                    <a href="#" class="h4">
+                                        {{ post.author }}</a>
                                     <div class="text-small">
                                         <ion-icon name="time-outline"></ion-icon>
-                                        <time datetime="PT3M">{{ post.publish }}</time>
+                                        <time datetime="PT3M">{{ post.publish|date:'Y/m/d H:i' }}</time>
                                     </div>
                                 </div>
                             </div>
@@ -116,6 +116,9 @@
                 <div class="tags">
                     <h2 class="h2">Tags</h2>
                     <div class="wrapper">
+                        {% for tag in tags %}
+                        <button class="hashtag">#{{ tag.name }}</button>
+                        {% endfor %}
                         <button class="hashtag">#Python</button>
                         <button class="hashtag">#Data Management</button>
                         <button class="hashtag">#WordPress</button>

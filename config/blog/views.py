@@ -8,7 +8,6 @@ from .forms import *
 from .models import *
 
 
-
 def index(request):
     posts = Post.published.all()
     context = {'posts_view': posts}
@@ -20,6 +19,7 @@ def post_list(request, category=None):
         posts = Post.published.filter(category=category)
     else:
         posts = Post.published.select_related('author').order_by('-total_likes')
+    tags = Post.tags.all()
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page', 1)
     try:
@@ -31,6 +31,7 @@ def post_list(request, category=None):
     context = {
         'posts': posts,
         'category': category,
+        'tags': tags,
     }
     return render(request, 'blog/Post_list/post_list.html', context)
 
@@ -98,7 +99,6 @@ def save_post(request):
     return JsonResponse({'error': 'Invalid post id'})
 
 
-
 @login_required
 def create_post(request):
     if request.method == 'POST':
@@ -134,3 +134,13 @@ def edit_post(request, post_id):
         'post': post
     }
     return render(request, 'forms/create_post.html', context)
+
+
+@login_required
+def delete_post(request, post_id):
+    user_non_published_posts = Post.draft.filter(author=request.user) | Post.rejected.filter(author=request.user)
+    post = get_object_or_404(user_non_published_posts, id=post_id)
+    if request.method == 'POST':
+        post.delete()
+        return redirect('accounts:dashboard')
+    return render(request, 'forms/delete_post.html', {'post': post})
