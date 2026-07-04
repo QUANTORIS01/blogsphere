@@ -5,6 +5,7 @@ from django.urls import reverse
 from bs4 import BeautifulSoup
 from django.conf import settings
 from taggit.managers import TaggableManager
+from django_ckeditor_5.fields import CKEditor5Field
 from accounts.models import User
 
 
@@ -41,7 +42,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=100, verbose_name='Title')
     banner = models.ImageField(upload_to='banners/', null=True, blank=True, verbose_name='Banner')
-    description = models.TextField(verbose_name='Description')
+    description = CKEditor5Field(config_name='extends', verbose_name='Description')
     category = models.CharField(choices=CATEGORY_CHOICES, default='Other', verbose_name='Category')
     publish = models.DateTimeField(default=timezone.now, verbose_name='Publication Date')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Creation Date')

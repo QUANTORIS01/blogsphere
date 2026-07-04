@@ -1,8 +1,11 @@
+import jdatetime
+import uuid
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
+from django.core.files.storage import default_storage
 from django.db.models import Count, F
 from .forms import *
 from .models import *
@@ -144,3 +147,27 @@ def delete_post(request, post_id):
         post.delete()
         return redirect('accounts:dashboard')
     return render(request, 'forms/delete_post.html', {'post': post})
+
+@login_required
+@require_POST
+def secure_ckeditor_upload(request):
+    user = request.user
+    if user.role not in ['admin', 'author']:
+        return HttpResponseForbidden('You are not allowed to upload images.')
+    upload = request.FILES.get('upload')
+    if not upload:
+        return JsonResponse({'error': 'No file has been sent.'}, status=400)
+    allowed_extensions = ['.jpg', '.jpeg', '.png', '.webp']
+    ext = os.path.splitext(upload.name)[1].lower()
+    if ext not in allowed_extensions:
+        return JsonResponse({'error': 'Invalid file format.'}, status=400)
+    max_size = 5 * 1024 * 1024
+    if upload.size > max_size:
+        return JsonResponse({'error': 'The file size exceeds 5 MB.'}, status=400)
+    username = user.username
+    today_solar = jdatetime.date.today().strftime('%Y/%m/%d')
+    filename = f'{uuid.uuid4().hex}{ext}'
+    upload_path = os.path.join('uploads', 'ckeditor', username, today_solar, filename)
+    saved_path = default_storage.save(upload_path, upload)
+    file_url = default_storage.url(saved_path)
+    return JsonResponse({'uploaded': True, 'url': file_url})
