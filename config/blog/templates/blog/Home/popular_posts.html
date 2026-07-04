@@ -1,0 +1,68 @@
+{% load static %}
+{% load blog_tags %}
+<link rel="stylesheet" href="{% static 'css/blog/Home/popular_posts.css' %}">
+
+<div class="popular-posts-section-wrapper">
+    <div class="popular-posts-container">
+        <h2 class="popular-posts-main-title">
+            <span class="popular-title-text">Popular Posts</span>
+            <span class="popular-title-decoration"></span>
+        </h2>
+
+        <div class="popular-posts-main-grid">
+            {% for post in p_posts %}
+            <article class="popular-post-main-card">
+                <div class="popular-post-inner">
+                    <a href="{{ post.get_absolute_url }}" class="popular-post-card-link">
+                        <div class="popular-post-image-container">
+                            {% if post.banner %}
+                            <img src="{{ post.banner.url }}" alt="{{ post.title }}"
+                                 class="popular-post-thumbnail">
+                            {% else %}
+                            <img src="{% static 'images/Default-popular-post.jpg' %}"
+                                 alt="Default image" class="popular-post-thumbnail">
+                            {% endif %}
+                            <div class="popular-post-rank-badge">#{{ forloop.counter }}</div>
+                        </div>
+                    </a>
+
+                    <div class="popular-post-content">
+                        <a href="{{ post.get_absolute_url }}" class="popular-post-title-link">
+                            <h3 class="popular-post-title">{{ post.title }}</h3>
+                        </a>
+
+                        <div class="popular-post-excerpt">
+                            <p>{{ post.description|secure_truncate:110}}</p>
+                        </div>
+
+                        <div class="popular-post-metadata">
+                            <a href="#"
+                               class="popular-author-info">
+                                {% if post.author.avatar %}
+                                <img src="{{ post.author.avatar.url }}"
+                                     alt="{{ post.author.username }}" class="popular-author-avatar">
+                                {% else %}
+                                <img src="{% static 'images/Default-profile.jpg' %}" alt="Author"
+                                     class="popular-author-avatar">
+                                {% endif %}
+                                <span class="popular-author-name">{{ post.author.username }}</span>
+                            </a>
+
+                            <div class="popular-post-stats">
+                                <span class="popular-view-count">
+                                    <i class="fas fa-eye"></i>
+                                    {{ post.visits }} Visit
+                                </span>
+                                <span class="popular-like-count">
+                                    <i class="fas fa-heart"></i>
+                                    {{ post.likes.count }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</div>

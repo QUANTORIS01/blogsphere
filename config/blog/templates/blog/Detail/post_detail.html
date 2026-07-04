@@ -81,112 +81,114 @@
             </div>
         </div>
     </div>
-    <script>
-        document.querySelectorAll('.btn-like').forEach(button => {
-            button.addEventListener('click', function () {
-                const postId = this.getAttribute('data-post-id');
-                const likeCount = document.getElementById(`like-count-${postId}`);
-                const heartIcon = document.getElementById(`heart-icon-${postId}`);
-                const likeBtn = document.getElementById(`like-btn-${postId}`);
-                fetch('{% url "blog:like_post" %}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                    },
-                    body: `post_id=${postId}`
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.liked !== undefined) {
-                            if (data.liked) {
-                                likeBtn.classList.add('active');
-                                heartIcon.classList.remove('far');
-                                heartIcon.classList.add('fas');
-                                heartIcon.style.color = '#e74c3c';
-                                createHeartEffect(likeBtn);
-                            } else {
-                                likeBtn.classList.remove('active');
-                                heartIcon.classList.remove('fas');
-                                heartIcon.classList.add('far');
-                                heartIcon.style.color = '';
-                            }
-                            likeCount.textContent = data.post_likes_count;
-                        } else {
-                            console.error('Error in response:', data.error);
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
-        });
-        document.querySelectorAll('.btn-save').forEach(button => {
-            button.addEventListener('click', function () {
-                const postId = this.getAttribute('data-post-id');
-                const bookmarkIcon = document.getElementById(`bookmark-icon-${postId}`);
-                const saveBtn = document.getElementById(`save-btn-${postId}`);
-                fetch('{% url "blog:save_posts" %}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                    },
-                    body: `post_id=${postId}`
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.saved !== undefined) {
-                            if (data.saved) {
-                                saveBtn.classList.add('active');
-                                bookmarkIcon.classList.remove('far');
-                                bookmarkIcon.classList.add('fas');
-                                bookmarkIcon.style.color = '#f39c12';
-                            } else {
-                                saveBtn.classList.remove('active');
-                                bookmarkIcon.classList.remove('fas');
-                                bookmarkIcon.classList.add('far');
-                                bookmarkIcon.style.color = '';
-                            }
-                        } else {
-                            console.error('Error in response:', data.error);
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
-        });
-        function createHeartEffect(element) {
-            const heart = document.createElement('div');
-            heart.className = 'heart-animation';
-            heart.innerHTML = '<i class="fas fa-heart" style="position: absolute; color: #e74c3c; font-size: 24px;"></i>';
 
-            element.appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 600);
-        }
-
-        document.querySelectorAll('.btn-share').forEach(button => {
-            button.addEventListener('click', function () {
-                const postId = this.getAttribute('data-post-id');
-                const postUrl = window.location.origin + `/blog/posts/detail/${postId}/`;
-
-                if (navigator.share) {
-                    navigator.share({
-                        title: document.title,
-                        url: postUrl
-                    })
-                        .catch(error => console.log('Error sharing:', error));
-                } else {
-                    navigator.clipboard.writeText(postUrl)
-                        .then(() => {
-                            alert('Link copied.!');
-                        })
-                        .catch(err => {
-                            console.error('Failed to copy: ', err);
-                        });
-                }
-            });
-        });
-    </script>
 </main>
+<script>
+    document.querySelectorAll('.btn-like').forEach(button => {
+        button.addEventListener('click', function () {
+            const postId = this.getAttribute('data-post-id');
+            const likeCount = document.getElementById(`like-count-${postId}`);
+            const heartIcon = document.getElementById(`heart-icon-${postId}`);
+            const likeBtn = document.getElementById(`like-btn-${postId}`);
+            fetch('{% url "blog:like_post" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: `post_id=${postId}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.liked !== undefined) {
+                        if (data.liked) {
+                            likeBtn.classList.add('active');
+                            heartIcon.classList.remove('far');
+                            heartIcon.classList.add('fas');
+                            heartIcon.style.color = '#e74c3c';
+                            createHeartEffect(likeBtn);
+                        } else {
+                            likeBtn.classList.remove('active');
+                            heartIcon.classList.remove('fas');
+                            heartIcon.classList.add('far');
+                            heartIcon.style.color = '';
+                        }
+                        likeCount.textContent = data.post_likes_count;
+                    } else {
+                        console.error('Error in response:', data.error);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+    document.querySelectorAll('.btn-save').forEach(button => {
+        button.addEventListener('click', function () {
+            const postId = this.getAttribute('data-post-id');
+            const bookmarkIcon = document.getElementById(`bookmark-icon-${postId}`);
+            const saveBtn = document.getElementById(`save-btn-${postId}`);
+            fetch('{% url "blog:save_posts" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: `post_id=${postId}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.saved !== undefined) {
+                        if (data.saved) {
+                            saveBtn.classList.add('active');
+                            bookmarkIcon.classList.remove('far');
+                            bookmarkIcon.classList.add('fas');
+                            bookmarkIcon.style.color = '#f39c12';
+                        } else {
+                            saveBtn.classList.remove('active');
+                            bookmarkIcon.classList.remove('fas');
+                            bookmarkIcon.classList.add('far');
+                            bookmarkIcon.style.color = '';
+                        }
+                    } else {
+                        console.error('Error in response:', data.error);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+
+    function createHeartEffect(element) {
+        const heart = document.createElement('div');
+        heart.className = 'heart-animation';
+        heart.innerHTML = '<i class="fas fa-heart" style="position: absolute; color: #e74c3c; font-size: 24px;"></i>';
+
+        element.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 600);
+    }
+
+    document.querySelectorAll('.btn-share').forEach(button => {
+        button.addEventListener('click', function () {
+            const postId = this.getAttribute('data-post-id');
+            const postUrl = window.location.origin + `/blog/posts/detail/${postId}/`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: postUrl
+                })
+                    .catch(error => console.log('Error sharing:', error));
+            } else {
+                navigator.clipboard.writeText(postUrl)
+                    .then(() => {
+                        alert('Link copied.!');
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+            }
+        });
+    });
+</script>
 {% endblock %}

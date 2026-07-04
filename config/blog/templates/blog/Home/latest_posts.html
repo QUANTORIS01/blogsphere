@@ -1,0 +1,66 @@
+{% load static %}
+{% load blog_tags %}
+<link rel="stylesheet" href="{% static 'css/blog/Home/latest_posts.css' %}">
+
+<div class="latest-posts-container">
+    <h2 class="popular-posts-main-title">
+        <span class="popular-title-text">Latest Posts</span>
+        <span class="popular-title-decoration"></span>
+    </h2>
+
+    <div class="latest-posts-grid">
+        {% for post in l_posts %}
+        <article class="latest-post-card-wrapper">
+            <div class="latest-card-inner">
+                <a href="{{ post.get_absolute_url }}" class="latest-card-link">
+                    <div class="latest-card-image-container">
+                        {% if post.banner %}
+                        <img src="{{ post.banner.url }}" alt="{{ post.title }}" class="latest-post-image">
+                        {% else %}
+                        <img src="{% static 'images/Default-post.jpg' %}" alt="Default image"
+                             class="latest-post-image">
+                        {% endif %}
+
+                        <div class="latest-image-overlay">
+                            <span class="latest-view-text">View</span>
+                        </div>
+
+                        <div class="latest-date-badge">
+                            <span class="latest-day">{{ post.publish|date:'d'}}</span>
+                            <span class="latest-month">{{ post.publish|date:'m'}}</span>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="latest-card-content">
+                    <a href="{{ post.get_absolute_url }}" class="latest-post-title-link">
+                        <h3 class="latest-post-title">{{ post.title }}</h3>
+                    </a>
+
+                    <div class="latest-post-excerpt">
+                        <p>{{ post.description|secure_truncate:110 }}</p>
+                    </div>
+
+                    <div class="latest-card-footer">
+                        <a href="#"
+                           class="latest-author-info">
+                            {% if post.author.avatar %}
+                            <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}"
+                                 class="latest-author-avatar">
+                            {% else %}
+                            <img src="{% static 'images/Default-profile.jpg' %}" alt="Author"
+                                 class="latest-author-avatar">
+                            {% endif %}
+                            <span class="latest-author-name">{{ post.author.username }}</span>
+                        </a>
+
+                        <div class="latest-post-stats">
+                            <span class="latest-read-time">{{ post.read_time|default:"5" }}Minute</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>

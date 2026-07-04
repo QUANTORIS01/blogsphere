@@ -40,8 +40,8 @@ def active_author(count=3):
             from django.contrib.auth.models import User
             from ..models import Intermediary
             user = User.objects.get(id=author['author__id'])
-            if hasattr(user, 'account') and user.account.avatar:
-                author['avatar_url'] = user.account.avatar.url
+            if hasattr(user, 'account') and user.avatar:
+                author['avatar_url'] = user.avatar.url
             else:
                 author['avatar_url'] = None
 
@@ -71,4 +71,3 @@ def secure_truncate(value, length=110):
         return clean_value
     except:
         return value[:length] + ' ...' if len(value) > length else value
-

@@ -1,0 +1,54 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/blog/Home/active_author.css' %}">
+
+<h2 class="search-main-title">
+    <span class="section-title">Active writers</span>
+    <span class="search-title-decoration"></span>
+</h2>
+
+<div class="authors-grid">
+    {% for author in active_authors %}
+    <div class="author-card">
+        <div class="author-card-inner">
+            <div class="author-avatar-wrapper">
+                {% if author.avatar_url %}
+                <img src="{{ author.avatar_url }}" class="author-avatar"
+                     alt="{{ author.author__username }}">
+                {% else %}
+                <img src="{% static 'images/Default-profile.jpg' %}" class="author-avatar"
+                     alt="{{ author.author__username }}">
+                {% endif %}
+
+                <div class="author-post-count-badge">
+                    <i class="fas fa-file-alt"></i>
+                    {{ author.post_count }}
+                </div>
+            </div>
+
+            <div class="author-info">
+                <h3 class="author-name">{{ author.author__username }}</h3>
+
+                <div class="author-stats">
+                    <span class="stat-item">
+                        <i class="fas fa-file-alt"></i>
+                        {{ author.post_count }} Post
+                    </span>
+                    <span class="stat-item">
+                        <i class="fas fa-users"></i>
+                        {{ author.follower_count|default:0 }} Follower
+                    </span>
+                </div>
+
+                <a href="#"
+                   class="author-profile-link">
+                    <i class="fas fa-user"></i>
+                    View posts
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p style="text-align: center; color: var(--fg2); font-size: var(--fs-lg);">There is no active
+        writer.</p>
+    {% endfor %}
+</div>
