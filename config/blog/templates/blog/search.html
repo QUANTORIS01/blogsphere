@@ -1,0 +1,88 @@
+{% extends 'parent/base.html' %}
+{% load static %}
+{% load blog_tags %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/blog/search.css' %}">
+{% endblock %}
+{% block title %}Search: {{ query }}{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main">
+        <div class="search-page-container">
+            <div class="search-header">
+                <h1 class="search-title">Search results for "{{ query }}"</h1>
+                <p class="search-result-count">
+                    {% if results %}
+                    {{ results.count }} Result found
+                    {% else %}
+                    No results found.
+                    {% endif %}
+                </p>
+            </div>
+
+            {% if results %}
+            <div class="search-results-grid">
+                {% for post in results %}
+                <article class="enhanced-search-card">
+                    <div class="card-image-container">
+                        {% if post.banner %}
+                        <img src="{{ post.banner.url }}" alt="{{ post.title }}" class="card-image">
+                        {% else %}
+                        <img src="{% static 'images/Default-search.jpg' %}" alt="Default image" class="card-image">
+                        {% endif %}
+                        {% if post.category %}
+                        <span class="card-category-badge">{{ post.category.name }}</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="card-content">
+                        <h2 class="card-title">
+                            <a href="{{ post.get_absolute_url }}" class="card-link">{{ post.title }}</a>
+                        </h2>
+
+                        <p class="card-description">{{ post.description|secure_truncate:110 }}</p>
+
+                        <div class="card-footer">
+                            <a href="{{ post.author.get_absolute_url }}" class="author-link">
+                            <div class="author-info">
+                                {% if post.author.avatar %}
+                                <img src="{{ post.author.avatar.url }}" alt="{{ post.author.name }}" class="author-avatar">
+                                {% else %}
+                                <img src="{% static 'images/Default-profile.jpg' %}" alt="Author" class="author-avatar">
+                                {% endif %}
+                                <div class="author-details">
+                                    <span class="author-name">{{ post.author.get_full_name|default:post.author.username }}</span>
+                                    <span class="publish-date">{{ post.created_at|date:"d M Y" }}</span>
+                                </div>
+                            </div>
+                            </a>
+                            <div class="card-meta">
+                                <span class="read-time">{{ post.publish|date:'Y/m/d' }} Publication Date</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-results-enhanced">
+                <div class="no-results-icon">
+                    <ion-icon name="search-outline"></ion-icon>
+                </div>
+                <h3>Unfortunately, no results were found.</h3>
+                <p>Please try another keyword.</p>
+                <div class="suggested-searches">
+                    <h4>Suggested searches:</h4>
+                    <div class="suggestions">
+                        <a href="?query=Technology" class="suggestion-tag">Technology</a>
+                        <a href="?query=Programming" class="suggestion-tag">Programming</a>
+                        <a href="?query=Design" class="suggestion-tag">Design</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}

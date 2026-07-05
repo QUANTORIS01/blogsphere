@@ -14,4 +14,5 @@ urlpatterns = [
     path('dashboard/create-post/<post_id>', views.edit_post, name='edit_post'),
     path('dashboard/delete-post/<post_id>', views.delete_post, name='delete_post'),
     path('ckeditor/upload/', views.secure_ckeditor_upload, name='secure_ckeditor_upload'),
+    path('search/', views.post_search, name='post_search'),
 ]
