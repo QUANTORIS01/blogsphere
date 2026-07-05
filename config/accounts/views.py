@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.contrib import messages
 from blog.models import Post
 from .forms import *
+from .email_service import send_email_thread
 
 
 def register(request):
@@ -81,3 +84,31 @@ def dashboard(request):
         return dashboard_author(request)
     else:
         return dashboard_user(request)
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            Contact.objects.create(**cd)
+            message = (f"Name: {cd['name']}\n"
+                       f"Email: {cd['email']}\n"
+                       f"Phone Number: {cd['phone']}\n"
+                       f"Message text: {cd['message']}"
+                       )
+            send_email_thread(
+                cd['subject'],
+                message,
+                [settings.EMAIL_HOST_USER],
+            )
+            messages.success(request, 'Your message has been sent successfully.')
+    else:
+        form = ContactForm()
+        if request.user.is_authenticated:
+            form.initial = {
+                'name': request.user.username,
+                'email': request.user.email,
+                'phone': getattr(request.user, 'phone', '')
+            }
+    return render(request, 'forms/contact.html', {'form': form})

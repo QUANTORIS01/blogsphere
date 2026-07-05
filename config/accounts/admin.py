@@ -11,4 +11,10 @@ class UserAdmin(UserAdmin):
     list_editable = ['role']
     fieldsets = UserAdmin.fieldsets + (
         ('Additional Information',
-         {'fields': ('role', 'phone', 'date_of_birth', 'bio', 'job','avatar')}),)
+         {'fields': ('role', 'phone', 'date_of_birth', 'bio', 'job', 'avatar')}),)
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'phone', 'subject']
+    search_fields = ['name', 'subject']

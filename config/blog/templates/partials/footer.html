@@ -25,7 +25,7 @@
                         <h3>Quick Links</h3>
                         <ul>
                             <li><a href="{% url 'blog:post_list' %}">Posts</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="{% url 'accounts:contact' %}">Contact Us</a></li>
                             <li><a href="#">About Us</a></li>
                         </ul>
                     </div>
@@ -53,9 +53,9 @@
                     <div class="link-column">
                         <h3>Contact Us</h3>
                         <ul>
-                            <li><a href="#">quantoris01@gmail.com</a></li>
-                            <li><a href="#">021.....</a></li>
-                            <li><a href="#">Address...</a></li>
+                            <li><a href="{% url 'accounts:contact' %}">quantoris01@gmail.com</a></li>
+                            <li><a href="{% url 'accounts:contact' %}">021.....</a></li>
+                            <li><a href="{% url 'accounts:contact' %}">Address...</a></li>
                         </ul>
                     </div>
                 </div>

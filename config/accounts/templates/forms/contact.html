@@ -1,0 +1,116 @@
+{% extends "parent/base.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/forms/contact.css' %}">
+{% endblock %}
+{% block title %}Contact Us{% endblock %}
+{% block content %}
+<main>
+    <div class="hero">
+        <section class="contact">
+            {% if messages %}
+            <div class="success-container">
+                <div class="success-icon">
+                    <i class="bx bx-check-circle"></i>
+                </div>
+                <h2 class="success-title">Your message has been sent!</h2>
+                <p class="success-message">Thank you for contacting us. Your message has been successfully received and
+                    will be answered as soon as possible.</p>
+                <button class="home-btn" onclick="window.location.href='{% url 'blog:index' %}'">
+                    <i class="bx bx-home home-icon"></i>
+                    Return to the home page
+                </button>
+            </div>
+            {% else %}
+            <h2 class="section_title">Contact Us</h2>
+            <div class="section_container">
+                <div class="contact_container">
+                    <div class="contact_form">
+                        <form method="post" action="{% url 'accounts:contact' %}">
+                            {% csrf_token %}
+                            <div class="field">
+                                <label for="name">Full name</label>
+                                <input type="text" name="name" id="name" placeholder="Full Name"
+                                       {% if form.name.value %} value="{{form.name.value}}" {% endif %} required/>
+                            </div>
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" placeholder="Email"
+                                       {% if form.email.value %} value="{{form.email.value}}" {% endif %} required/>
+                            </div>
+                            <div class="field">
+                                <label for="phone">Mobile number</label>
+                                <input type="text" name="phone" id="phone" placeholder="Mobile number" maxlength="11"
+                                       {% if form.phone.value %} value="{{form.phone.value}}" {% endif %} required/>
+                            </div>
+                            <div class="field">
+                                <label for="subject">Subject</label>
+                                <select name="subject" id="subject">
+                                    <option value="Proposal">Suggestions</option>
+                                    <option value="Report">Reports</option>
+                                    <option value="Criticism">Criticisms</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="message">Input text</label>
+                                <textarea name="message" id="message" placeholder="Your message"
+                                          required>{% if form.message.value %}{{form.message.value}}{% endif %}</textarea>
+                            </div>
+                            <button class="button" type="submit" id="submit">Registration</button>
+                        </form>
+                        {% if form.errors %}
+                        {% for field in form %}
+                        {% if field.errors %}
+                        {% for error in field.errors %}
+                        <span class="error">
+                                            <i class="bx bx-error"></i>
+                                            {{field.label}}: {{error}}
+                                         </span>
+
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        {% if form.non_field_errors %}
+                        <span style="color: red; font-size: var(--fs-4);">
+                            {{ form.non_field_errors }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div class="contact_text">
+                        <div class="contact_items">
+                            <i class="bx bx-current-location"></i>
+                            <div class="contact_details">
+                                <h3>Our address</h3>
+                                <p>Iran</p>
+                            </div>
+                        </div>
+                        <div class="contact_items">
+                            <i class="fa-sharp fa-solid fa-envelope"></i>
+                            <div class="contact_details">
+                                <h3>General Questions</h3>
+                                <p>quantoris01@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact_items">
+                            <i class="bx bxs-phone-call"></i>
+                            <div class="contact_details">
+                                <h3>Contact Us</h3>
+                                <p>021xxxxxxxx</p>
+                            </div>
+                        </div>
+                        <div class="contact_items">
+                            <i class="bx bxs-time-five"></i>
+                            <div class="contact_details">
+                                <h3>Our Business Hours</h3>
+                                <p>Saturday to Thursday, from 9:00 AM to 4:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+    </div>
+</main>
+{% endblock %}

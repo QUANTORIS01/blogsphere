@@ -23,3 +23,16 @@ class User(AbstractUser):
         return self.username
 
 
+class Contact(models.Model):
+    message = models.TextField(verbose_name='Message text')
+    name = models.CharField(max_length=100, verbose_name='Name')
+    email = models.EmailField(verbose_name='Email')
+    phone = models.CharField(max_length=11, verbose_name='Phone Number')
+    subject = models.CharField(max_length=100, verbose_name='Subject')
+
+    class Meta:
+        verbose_name = 'Contact Us'
+        verbose_name_plural = 'Contact Us'
+
+    def __str__(self):
+        return self.subject

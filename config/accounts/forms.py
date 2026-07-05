@@ -46,3 +46,30 @@ class LoginForm(AuthenticationForm):
                                required=True)
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
                                required=True)
+
+
+class ContactForm(forms.Form):
+    SUBJECT_CHOICES = (
+        ('Proposal', 'Proposal'),
+        ('Criticism', 'Criticism'),
+        ('Report', 'Report')
+    )
+    message = forms.CharField(label='Message text', widget=forms.Textarea, required=True)
+    name = forms.CharField(label='Name', max_length=100, required=True)
+    phone = forms.CharField(label='Phone Number', max_length=11, required=True)
+    email = forms.EmailField(label='Email', required=True)
+    subject = forms.ChoiceField(label='Subject', choices=SUBJECT_CHOICES, required=True)
+
+    def clean_phone(self):
+        phone = self.cleaned_data['phone']
+        if phone:
+            if not phone.isnumeric():
+                raise forms.ValidationError('The phone number must be a number.')
+            if len(phone) != 11:
+                raise forms.ValidationError('The phone number must be 11 digits long.')
+            if not phone.startswith('09'):
+                raise forms.ValidationError('The phone number must start with 09.')
+            else:
+                return phone
+        else:
+            raise forms.ValidationError('The phone number must not be empty.')
