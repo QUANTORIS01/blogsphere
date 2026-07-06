@@ -112,3 +112,18 @@ def contact(request):
                 'phone': getattr(request.user, 'phone', '')
             }
     return render(request, 'forms/contact.html', {'form': form})
+
+
+@login_required
+def edit_account(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user, data=request.POST, files=request.FILES)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('accounts:dashboard')
+    else:
+        user_form = UserEditForm(instance=request.user)
+    context = {
+        'user_form': user_form,
+    }
+    return render(request, 'registration/edit_account.html', context)

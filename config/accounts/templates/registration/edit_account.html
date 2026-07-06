@@ -1,0 +1,282 @@
+{% extends "parent/base.html" %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/registration/edit_account.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+<main class="main">
+    <div class="hero">
+        <section class="edit-account" id="edit-account">
+            <div class="container">
+                <h2 class="section_title">Edit Profile</h2>
+                <div class="edit_account_wrapper">
+                    <div class="user-info-section">
+                        <div class="profile_card">
+                            <div class="avatar_container">
+                                {% if user.avatar %}
+                                    <img src="{{ user.avatar.url }}" alt="Avatar" class="avatar_img">
+                                {% else %}
+                                    <div class="avatar_placeholder">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="user_details">
+                                <h3>{{ user.get_full_name|default:user.username }}</h3>
+                                <p class="username">{{ user.username }}</p>
+                                <p class="email">{{ user.email|default:"Unregistered email" }}</p>
+                            </div>
+                        </div>
+
+                        <div class="account_summary">
+                            <div class="summary_item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <h4>Phone number</h4>
+                                    <p>{{ user.phone|default:"Not recorded" }}</p>
+                                </div>
+                            </div>
+
+                            <div class="summary_item">
+                                <i class="fas fa-calendar"></i>
+                                <div>
+                                    <h4>Date of birth</h4>
+                                    <p>{{ user.date_of_birth|default:"Not recorded" }}</p>
+                                </div>
+                            </div>
+
+                            <div class="summary_item">
+                                <i class="fas fa-briefcase"></i>
+                                <div>
+                                    <h4>Job</h4>
+                                    <p>{{ user.job|default:"Not recorded" }}</p>
+                                </div>
+                            </div>
+
+                            <div class="summary_item">
+                                <i class="fas fa-comment"></i>
+                                <div>
+                                    <h4>بیوگرافی</h4>
+                                    <p class="bio">{{ user.bio|default:"Not recorded" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <form method="POST" enctype="multipart/form-data" class="edit_form">
+                            {% csrf_token %}
+
+                            <div class="form_card">
+                                <h3 class="card_title">
+                                    <i class="fas fa-user-circle"></i>
+                                    User Information
+                                </h3>
+
+                                <div class="form_row">
+                                    <div class="form_group">
+                                        <label for="{{ user_form.username.id_for_label }}">
+                                            <i class="fas fa-user"></i>
+                                            Username
+                                        </label>
+                                        {{ user_form.username }}
+                                        {% if user_form.username.errors %}
+                                            <div class="error">{{ user_form.username.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="form_row">
+                                    <div class="form_group">
+                                        <label for="{{ user_form.first_name.id_for_label }}">
+                                            <i class="fas fa-signature"></i>
+                                            Name
+                                        </label>
+                                        {{ user_form.first_name }}
+                                        {% if user_form.first_name.errors %}
+                                            <div class="error">{{ user_form.first_name.errors }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form_group">
+                                        <label for="{{ user_form.last_name.id_for_label }}">
+                                            <i class="fas fa-user-tag"></i>
+                                            Surname
+                                        </label>
+                                        {{ user_form.last_name }}
+                                        {% if user_form.last_name.errors %}
+                                            <div class="error">{{ user_form.last_name.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="form_row">
+                                    <div class="form_group">
+                                        <label for="{{ user_form.email.id_for_label }}">
+                                            <i class="fas fa-envelope"></i>
+                                            Email
+                                        </label>
+                                        {{ user_form.email }}
+                                        {% if user_form.email.errors %}
+                                            <div class="error">{{ user_form.email.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form_card">
+                                <h3 class="card_title">
+                                    <i class="fas fa-id-card"></i>
+                                    Profile Information
+                                </h3>
+
+                                <div class="form_row">
+                                    <div class="form_group">
+                                        <label for="{{ user_form.phone.id_for_label }}">
+                                            <i class="fas fa-phone"></i>
+                                            Phone Number
+                                        </label>
+                                        {{ user_form.phone }}
+                                        {% if user_form.phone.errors %}
+                                            <div class="error">{{ user_form.phone.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="form_row">
+                                    <div class="form_group">
+                                        <label for="{{ user_form.date_of_birth.id_for_label }}">
+                                            <i class="fas fa-birthday-cake"></i>
+                                            Date of birth
+                                        </label>
+                                        {{ user_form.date_of_birth }}
+                                        {% if user_form.date_of_birth.errors %}
+                                            <div class="error">{{ user_form.date_of_birth.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="form_row">
+                                    <div class="form_group">
+                                        <label for="{{ user_form.job.id_for_label }}">
+                                            <i class="fas fa-briefcase"></i>
+                                            Job
+                                        </label>
+                                        {{ user_form.job }}
+                                        {% if user_form.job.errors %}
+                                            <div class="error">{{ user_form.job.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="form_row">
+                                    <div class="form_group full_width">
+                                        <label for="{{ user_form.bio.id_for_label }}">
+                                            <i class="fas fa-comment"></i>
+                                            Biography
+                                        </label>
+                                        {{ user_form.bio }}
+                                        {% if user_form.bio.errors %}
+                                            <div class="error">{{ user_form.bio.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="form_row">
+                                    <div class="form_group full_width">
+                                        <label for="{{ user_form.avatar.id_for_label }}">
+                                            <i class="fas fa-camera"></i>
+                                            Profile picture
+                                        </label>
+                                        {{ user_form.avatar }}
+                                        {% if user_form.avatar.errors %}
+                                            <div class="error">{{ user_form.avatar.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form_actions">
+                                <button class="btn btn_save" type="submit">
+                                    <i class="fas fa-save"></i>
+                                    Save changes
+                                </button>
+                                <a href="{% url 'accounts:dashboard' %}" class="btn btn_cancel">
+                                    <i class="fas fa-times"></i>
+                                    Cancel
+                                </a>
+                            </div>
+                        </form>
+
+                        {% if user_form.errors %}
+                            <div class="error_box">
+                                {% for field in user_form %}
+                                    {% if field.errors %}
+                                        {% for error in field.errors %}
+                                            <div class="error_item">
+                                                <i class="fas fa-exclamation-circle"></i>
+                                                {{ field.label }}: {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dateInput = document.querySelector('#id_date_of_birth');
+    if (dateInput) {
+        $(dateInput).persianDatepicker({
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+            position: 'auto',
+            isRTL: true,
+            calendar: {
+                persian: {
+                    enabled: true,
+                    locale: 'fa'
+                }
+            },
+            navigator: {
+                enabled: true,
+                scroll: {
+                    enabled: true
+                }
+            },
+            toolbox: {
+                enabled: true,
+                todayBtn: true,
+                calendarSwitch: {
+                    enabled: true,
+                    fa: ['gregorian', 'jalaali'],
+                    en: ['gregorian', 'jalaali']
+                }
+            }
+        });
+    }
+
+    const cards = document.querySelectorAll('.form_card, .profile_card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.classList.add('hover_effect');
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.classList.remove('hover_effect');
+        });
+    });
+});
+</script>
+{% endblock %}

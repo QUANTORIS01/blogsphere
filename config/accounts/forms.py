@@ -73,3 +73,35 @@ class ContactForm(forms.Form):
                 return phone
         else:
             raise forms.ValidationError('The phone number must not be empty.')
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'bio', 'date_of_birth', 'job', 'phone', 'avatar']
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.exclude(id=self.instance.id).filter(username=username).exists():
+            raise forms.ValidationError('The username is already taken.')
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if email:
+            if User.objects.exclude(id=self.instance.id).filter(email=email).exists():
+                raise forms.ValidationError('The email is a duplicate.')
+            return email
+
+    def clean_phone(self):
+        phone = self.cleaned_data['phone']
+        if phone:
+            if not phone.isnumeric():
+                raise forms.ValidationError('The phone number must be a number.')
+            if len(phone) != 11:
+                raise forms.ValidationError('The phone number must be 11 digits long.')
+            if not phone.startswith('09'):
+                raise forms.ValidationError('The phone number must start with 09.')
+            if User.objects.exclude(id=self.instance.id).filter(phone=phone).exists():
+                raise forms.ValidationError('The phone number is a duplicate.')
+            return phone

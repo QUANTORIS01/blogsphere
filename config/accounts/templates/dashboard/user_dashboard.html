@@ -118,7 +118,7 @@
                                         <p><strong>Role:</strong> <span>{{ user.get_role_display }}</span></p>
                                     </div>
                                 </div>
-                                <a href="#" class="btn-edit-profile">
+                                <a href="{% url 'accounts:edit_account' %}" class="btn-edit-profile">
                                     <i class="fas fa-edit"></i>Edit Profile
                                 </a>
 
