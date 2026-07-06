@@ -9,7 +9,7 @@ from django.core.files.storage import default_storage
 from django.contrib import messages
 from django.db import transaction
 from django.db.models import Count, F, Q
-from django.utils import timezone
+from django.http import HttpResponse
 from accounts.email_service import send_email_thread
 from .forms import *
 from .models import *
@@ -327,3 +327,21 @@ def all_author_requests(request):
         return redirect('blog:home')
     all_requests = AuthorRequest.objects.all().order_by('-created')
     return render(request, 'forms/all_author_requests.html', {'all_requests': all_requests})
+
+
+def post_detail_draft(request, pk):
+    post = get_object_or_404(Post, pk=pk, status=Post.Status.DRAFT)
+    is_author = post.author == request.user
+    is_admin = request.user.role in [User.Role.ADMIN]
+    if is_author or is_admin:
+        return render(request, 'blog/Detail/post_detail_draft.html', {'post': post})
+    else:
+        return HttpResponse('Unauthorized access')
+
+
+def post_detail_rejected(request, pk):
+    post = get_object_or_404(Post, pk=pk, status=Post.Status.REJECT)
+    if post.author == request.user:
+        return render(request, 'blog/Detail/post_detail_rejected.html', {'post': post})
+    else:
+        return HttpResponse('Unauthorized access')

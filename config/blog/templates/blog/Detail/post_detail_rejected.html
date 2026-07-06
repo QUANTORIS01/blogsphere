@@ -1,0 +1,89 @@
+{% extends "parent/base.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/blog/Detail/post_detail_rejected.css' %}">
+{% endblock %}
+{% block title %}{{ post.title }} - Rejected{% endblock %}
+{% block content %}
+<style>
+.image-style-align-left {
+    float: left;
+    margin: 0.5rem 1rem 0.5rem 0;
+}
+
+.image-style-align-right {
+    float: right;
+    margin: 0.5rem 0 0.5rem 1rem;
+}
+
+.image-style-align-center {
+    display: block;
+    margin: 0.5rem auto;
+}
+
+.image-style-side {
+    float: right;
+    margin: 0.5rem 0 0.5rem 1rem;
+    max-width: 50%;
+}
+</style>
+<main>
+    <div class="main">
+        <div class="post-detail-rejected">
+            <div class="post-header">
+                <h1 class="post-title">{{ post.title }}</h1>
+                <div class="post-meta">
+                    <div>
+                        <span class="post-author">Author: {{ post.author.get_full_name|default:post.author.username }}</span>
+                        <span class="post-date">Creation date: {{ post.created }}</span>
+                    </div>
+                    <div>
+                        <span class="post-category">{{ post.category }}</span>
+                        <span class="status-badge status-rejected">{{ post.get_status_display }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rejection-reason">
+                <h3>Reason for post rejection</h3>
+                <p>{{ post.reason_rejected|default:"No specific reason has been provided for rejecting this post." }}</p>
+                <p>Please revise the post's content based on the managers' comments and resubmit it.</p>
+            </div>
+
+            <div class="post-content">
+                {{ post.description|safe }}
+            </div>
+
+            {% if post.banner %}
+                <div class="post-image">
+                    <img src="{{ post.banner.url }}" alt="{{ post.title }}">
+                </div>
+            {% endif %}
+
+            {% if post.comments.exists %}
+            <div class="post-comments">
+                <h3>Comments</h3>
+                {% for comment in post.comments.all %}
+                <div class="comment">
+                    <div class="comment-header">
+                        <span>{{ comment.user.get_full_name|default:comment.user.username }}</span>
+                        <span class="comment-date">{{ comment.created }}</span>
+                    </div>
+                    <div class="comment-body">
+                        {{ comment.body }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if user == post.author %}
+            <div class="actions-section">
+                <a href="{% url 'blog:edit_post' post.id %}" class="btn-action btn-edit">Edit post</a>
+                <a href="{% url 'accounts:dashboard' %}" class="btn-action btn-back">Return</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}

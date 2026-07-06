@@ -1,0 +1,187 @@
+.post-detail-rejected {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    color: var(--fg);
+    direction: rtl;
+    font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+.post-header {
+    border-bottom: 2px solid var(--danger-color, #dc3545);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.post-title {
+    font-size: var(--fs-2);
+    color: var(--fg2);
+    margin-bottom: 10px;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--fg3);
+    font-size: var(--fs-4);
+    margin-bottom: 15px;
+}
+
+.post-author {
+    font-weight: bold;
+    color: var(--ac);
+}
+
+.post-date {
+    color: var(--fg3);
+}
+
+.post-category {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: var(--act);
+    color: var(--fg2);
+    border-radius: 5px;
+    font-size: var(--fs-4);
+}
+
+.post-content {
+    line-height: 1.8;
+    margin-bottom: 30px;
+    color: var(--fg2);
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: var(--fs-4);
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.status-rejected {
+    background-color: var(--danger-color, #dc3545);
+    color: white;
+}
+
+.rejection-reason {
+    background-color: var(--act);
+    border-right: 4px solid var(--danger-color, #dc3545);
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+    color: var(--fg2);
+}
+
+.rejection-reason h3 {
+    margin-top: 0;
+    color: var(--fg2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rejection-reason h3::before {
+    content: "⚠️";
+    font-size: 1.2em;
+}
+
+.rejection-reason p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.actions-section {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--act);
+}
+
+.btn-action {
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+}
+
+.btn-edit {
+    background-color: var(--warning-color, #ffc107);
+    color: var(--fg);
+}
+
+.btn-back {
+    background-color: var(--secondary-color, #6c757d);
+    color: white;
+}
+
+.btn-action:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.post-comments {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--act);
+}
+
+.comment {
+    padding: 15px;
+    background-color: var(--act);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-right: 3px solid var(--ac);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--fg2);
+}
+
+.comment-date {
+    font-weight: normal;
+    color: var(--fg3);
+    font-size: var(--fs-5);
+}
+
+.comment-body {
+    color: var(--fg2);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .post-detail-rejected {
+        padding: 15px;
+    }
+
+    .post-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .actions-section {
+        flex-direction: column;
+    }
+}
