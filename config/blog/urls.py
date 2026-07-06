@@ -15,4 +15,8 @@ urlpatterns = [
     path('dashboard/delete-post/<post_id>', views.delete_post, name='delete_post'),
     path('ckeditor/upload/', views.secure_ckeditor_upload, name='secure_ckeditor_upload'),
     path('search/', views.post_search, name='post_search'),
+    path('request-authorship/', views.request_authorship, name='request_authorship'),
+    path('review-request/<int:request_id>/', views.review_author_request, name='review_author_request'),
+    path('pending-requests/', views.pending_requests, name='pending_requests'),
+    path('author-requests/', views.all_author_requests, name='all_author_requests'),
 ]

@@ -1,0 +1,87 @@
+{% extends "parent/base.html" %}
+{% load static %}
+
+{% block title %}Writing Application{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/forms/author_request.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main">
+        <div class="container">
+            <div class="author-request-container">
+                {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                    <div class="message {{ message.tags }}">
+                        {{ message }}
+
+                        {% if message.tags == 'success' %}
+                        <a href="{% url 'accounts:dashboard' %}" class="message-btn">
+                            <i class="fas fa-tachometer-alt"></i>Go to dashboard
+                        </a>
+                        {% elif message.tags == 'error' %}
+                        <a href="{% url 'accounts:edit_account' %}" class="message-btn">
+                            <i class="fas fa-user-edit"></i> Edit Information
+                        </a>
+                        {% elif message.tags == 'info' %}
+                        <a href="{% url 'accounts:dashboard' %}" class="message-btn">
+                            <i class="fas fa-arrow-left"></i> Return to Dashboard
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+
+                <div class="request-header">
+                    <h1><i class="fas fa-user-edit"></i>Writing Application</h1>
+                    <p>Fill out the form below to apply as a writer.</p>
+                </div>
+
+                <div class="form-container">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="required">*</span>{% endif %}
+                            </label>
+
+                            {{ field }}
+
+                            {% if field.help_text %}
+                            <span class="helptext">{{ field.help_text }}</span>
+                            {% endif %}
+
+                            {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>Submit Request
+                        </button>
+                    </form>
+
+                    <div class="form-footer">
+                        <p>After submitting the request, you will be notified of the review result via email.</p>
+                        <a href="{% url 'accounts:dashboard' %}"><i class="fas fa-arrow-left"></i>Return to Dashboard</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

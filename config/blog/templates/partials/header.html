@@ -17,7 +17,7 @@
                         <a href="{% url 'accounts:dashboard' %}" class="nav-link profile-link">
                             <div class="profile-wrapper">
                                 {% if request.user.avatar %}
-                                <img src="{{request.user.account.avatar.url}}"
+                                <img src="{{request.user.avatar.url}}"
                                      alt="Profile Image" width="30" class="profile-image">
                                 {% else %}
                                 <img src="{% static 'images/Default-profile.jpg' %}"

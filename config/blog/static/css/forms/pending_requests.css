@@ -1,0 +1,155 @@
+.pending-requests-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.pending-requests-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--act);
+}
+
+.pending-requests-header h2 {
+    color: var(--fg);
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.requests-list {
+    background: var(--bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.request-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--act);
+    transition: background-color 0.3s;
+}
+
+.request-item:last-child {
+    border-bottom: none;
+}
+
+.request-item:hover {
+    background-color: var(--act);
+}
+
+.request-info {
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.request-name {
+    font-weight: bold;
+    color: var(--fg);
+    font-size: 1.1rem;
+}
+
+.request-email, .request-phone {
+    color: var(--fg3);
+    font-size: 0.9rem;
+}
+
+.locked-status {
+    background-color: var(--act2);
+    color: var(--fg3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.request-actions {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.btn-review {
+    background-color: var(--ac);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+}
+
+.btn-review:hover {
+    background-color: var(--ac2);
+}
+
+.btn-review:disabled {
+    background-color: var(--fg3);
+    cursor: not-allowed;
+}
+
+.no-requests {
+    text-align: center;
+    padding: 3rem;
+    color: var(--fg);
+    font-size: 1.2rem;
+}
+
+.no-requests i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--fg3);
+}
+
+.back-to-dashboard {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.7rem 1.5rem;
+    background-color: var(--ac);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.back-to-dashboard:hover {
+    background-color: var(--ac2);
+}
+
+@media (max-width: 768px) {
+    .request-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+
+    .request-info {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .request-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .pending-requests-container {
+        margin: 1rem;
+        padding: 0.5rem;
+    }
+}

@@ -226,7 +226,7 @@
                                     {% empty %}
                                     <p>There are no requests for writers.</p>
                                     {% endfor %}
-                                    <a href="#" class="btn-see-all">
+                                    <a href="{% url 'blog:all_author_requests' %}" class="btn-see-all">
                                         <i class="fas fa-external-link-alt"></i>View all requests
                                     </a>
                                 </div>

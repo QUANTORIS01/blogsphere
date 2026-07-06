@@ -1,0 +1,177 @@
+{% extends "parent/base.html" %}
+{% load static %}
+
+{% block title %}Reviewing the writing application{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/forms/review_author_request.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main">
+        <div class="container">
+            <div class="review-container">
+                {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                    <div class="message {{ message.tags }}">
+                        {{ message }}
+
+                        {% if message.tags == 'success' %}
+                        <a href="{% url 'accounts:dashboard' %}" class="message-btn">
+                            <i class="fas fa-tachometer-alt"></i> Go to dashboard
+                        </a>
+                        {% elif message.tags == 'error' %}
+                        <a href="{% url 'blog:pending_requests' %}" class="message-btn">
+                            <i class="fas fa-clock"></i> View pending requests
+                        </a>
+                        {% elif message.tags == 'info' %}
+                        <a href="{% url 'accounts:dashboard' %}" class="message-btn">
+                            <i class="fas fa-arrow-left"></i> Return to Dashboard
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+
+                <div class="request-header">
+                    <h3><i class="fas fa-user-edit"></i> Reviewing the writing application</h3>
+                    <p>Review of writing requests for<strong>{{ author_request.full_name }}</strong></p>
+                </div>
+
+                <div class="request-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Name:</span>
+                        <span class="detail-value">{{ author_request.full_name }}</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value">{{ author_request.email }}</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Phone Number:</span>
+                        <span class="detail-value">{{ author_request.phone }}</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">National ID Number:</span>
+                        <span class="detail-value">{{ author_request.national_id }}</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Description:</span>
+                        <span class="detail-value">{{ author_request.description }}</span>
+                    </div>
+
+                    {% if author_request.resume %}
+                    <div class="detail-item">
+                        <span class="detail-label">Résumé:</span>
+                        <span class="detail-value">
+                    <a href="{{ author_request.resume.url }}" target="_blank">
+                        <i class="fas fa-file-download"></i>Download Resume
+                    </a>
+                </span>
+                    </div>
+                    {% endif %}
+
+                    <div class="detail-item">
+                        <span class="detail-label">Creation date:</span>
+                        <span class="detail-value">{{ author_request.created|date:'Y/m/d H:M' }}</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value">
+                    <span class="status-badge status-{{ author_request.status }}">
+                        {{ author_request.get_status_display }}
+                    </span>
+                </span>
+                    </div>
+
+                    {% if author_request.locked_by %}
+                    <div class="detail-item">
+                        <span class="detail-label">Locked by:</span>
+                        <span class="detail-value">
+                    {{ author_request.locked_by.get_full_name|default:author_request.locked_by.username }}
+                    {% if author_request.locked_at %}
+                        ({{ author_request.locked_at|date:'Y/m/d H:M' }})
+                    {% endif %}
+                    <div class="locked-indicator">
+                        <i class="fas fa-lock"></i> Under review
+                    </div>
+                </span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-container">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="status">Select status:</label>
+                            <select id="status" name="status" class="status-select">
+                                <option value="approved" {% if author_request.status == 'approved' %}selected{% endif %}>
+                                Approve Request
+                                </option>
+                                <option value="rejected" {% if author_request.status == 'rejected' %}selected{% endif %}>
+                                Request rejected
+                                </option>
+                            </select>
+                        </div>
+
+                        <div id="rejection_reason_container" class="rejection-reason-container">
+                            <label for="rejection_reason">Reason for rejection of the request:</label>
+                            <textarea
+                                    id="rejection_reason"
+                                    name="rejection_reason"
+                                    placeholder="Enter the reason for the request rejection fully and clearly..."
+                                    maxlength="500"
+                                    required
+                            >{{ author_request.rejection_reason|default:'' }}</textarea>
+                        </div>
+
+                        <div class="btn-container">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Recording the review result
+                            </button>
+                            <a href="{% url 'accounts:dashboard' %}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Return to Dashboard
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const statusSelect = document.getElementById('status');
+        const rejectionContainer = document.getElementById('rejection_reason_container');
+        const rejectionReason = document.getElementById('rejection_reason');
+
+        function updateField() {
+            if (statusSelect.value === 'rejected') {
+                rejectionContainer.classList.add('show');
+                rejectionReason.required = true;
+            } else {
+                rejectionContainer.classList.remove('show');
+                rejectionReason.required = false;
+            }
+        }
+
+        statusSelect.addEventListener('change', updateField);
+
+        updateField();
+    });
+
+</script>
+{% endblock %}

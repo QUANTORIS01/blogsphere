@@ -42,3 +42,10 @@ class PostAdmin(admin.ModelAdmin):
         return Post._base_manager.all()
 
 
+@admin.register(AuthorRequest)
+class AuthorRequestAdmin(admin.ModelAdmin):
+    list_display = ['user', 'status', 'created', 'reviewed_by']
+    list_filter = ['status', 'created']
+    search_fields = ['user__username', 'phone', 'email']
+    list_editable = ['status']
+    readonly_fields = ['created', 'reviewed']

@@ -1,0 +1,74 @@
+{% extends "parent/base.html" %}
+{% load static %}
+
+{% block title %}Pending requests{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/forms/pending_requests.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="main">
+        <div class="container">
+            <div class="pending-requests-container">
+                <div class="pending-requests-header">
+                    <h2><i class="fas fa-clock"></i>Pending requests</h2>
+                    <p>Pending writing requests</p>
+                </div>
+
+                {% if pending_requests_list %}
+                <div class="requests-list">
+                    {% for request in pending_requests_list %}
+                    <div class="request-item">
+                        <div class="request-info">
+                            <div class="request-name">
+                                <i class="fas fa-user"></i> {{ request.full_name }}
+                            </div>
+                            <div class="request-email">
+                                <i class="fas fa-envelope"></i> {{ request.email }}
+                            </div>
+                            <div class="request-phone">
+                                <i class="fas fa-phone"></i> {{ request.phone }}
+                            </div>
+                        </div>
+
+                        <div class="request-actions">
+                            {% if request.locked_by %}
+                            {% if request.locked_by == user %}
+                            <a href="{% url 'blog:review_author_request' request.id %}" class="btn-review">
+                                <i class="fas fa-edit"></i> Continuing the review
+                            </a>
+                            {% else %}
+                            <span class="locked-status">
+                                <i class="fas fa-lock"></i>
+                                Reviewed by {{ request.locked_by.get_full_name|default:request.locked_by.username }}
+                            </span>
+                            {% endif %}
+                            {% else %}
+                            <a href="{% url 'blog:review_author_request' request.id %}" class="btn-review">
+                                <i class="fas fa-edit"></i> Review
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="no-requests">
+                    <i class="fas fa-inbox"></i>
+                    <p>There is no request for review.</p>
+                </div>
+                {% endif %}
+
+                <div class="text-center">
+                    <a href="{% url 'accounts:dashboard' %}" class="back-to-dashboard">
+                        <i class="fas fa-arrow-left"></i> Return to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

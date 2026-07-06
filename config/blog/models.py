@@ -89,3 +89,38 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class AuthorRequest(models.Model):
+    class Status(models.TextChoices):
+        PENDING = 'pending', 'Pending review'
+        APPROVED = 'approved', 'Approved'
+        REJECTED = 'rejected', 'Rejected'
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_requests', verbose_name='Name')
+    full_name = models.CharField(max_length=99, verbose_name='Full name')
+    email = models.EmailField(max_length=99, verbose_name='Email')
+    phone = models.CharField(max_length=11, verbose_name='Phone Number')
+    national_id = models.CharField(max_length=10, verbose_name='National ID Number')
+    description = models.TextField(max_length=499, verbose_name='Description')
+    resume = models.FileField(upload_to='author_resumes/', verbose_name='Resume')
+    status = models.CharField(max_length=9, choices=Status.choices, default=Status.PENDING, verbose_name='Status')
+    reviewed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name='reviewed_author_requests', verbose_name='Reviewed by')
+    rejection_reason = models.TextField(max_length=499, blank=True, null=True, verbose_name='Reason for rejection')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Creation Date')
+    reviewed = models.DateTimeField(blank=True, null=True, verbose_name='Review Date')
+    locked_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
+                                  related_name='locked_author_requests', verbose_name='Locked by')
+    locked_at = models.DateTimeField(blank=True, null=True, verbose_name='Lock Date')
+
+    class Meta:
+        verbose_name = 'Writing Application'
+        verbose_name_plural = 'Writing Requests'
+        ordering = ['-created']
+        indexes = [
+            models.Index(fields=['-created'])
+        ]
+
+    def __str__(self):
+        return f'{self.user.username} - {self.status}'
