@@ -38,14 +38,14 @@ def active_author(count=3):
     for author in active_authors:
         try:
             from django.contrib.auth.models import User
-            from ..models import Intermediary
+            from accounts.models import UserFollow
             user = User.objects.get(id=author['author__id'])
-            if hasattr(user, 'account') and user.avatar:
+            if user.avatar:
                 author['avatar_url'] = user.avatar.url
             else:
                 author['avatar_url'] = None
 
-            follower_count = Intermediary.objects.filter(user_to=user).count()
+            follower_count = UserFollow.objects.filter(following=user).count()
             author['follower_count'] = follower_count
         except:
             author['avatar_url'] = None

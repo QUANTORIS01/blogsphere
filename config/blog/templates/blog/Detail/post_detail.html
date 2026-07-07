@@ -59,8 +59,8 @@
         </div>
 
         <div class="author-card">
-            {% if post.author.account.avatar %}
-            <img src="{{ post.author.account.avatar.url }}" alt="author" class="author-img">
+            {% if post.author.avatar %}
+            <img src="{{ post.author.avatar.url }}" alt="author" class="author-img">
             {% else %}
             <img src="{% static 'images/Default-profile.jpg' %}" alt="author" class="author-img">
             {% endif %}
@@ -70,9 +70,9 @@
                 </a>
                 <p class="author-role">Biography:</p>
                 <p class="author-bio">
-                    {{ post.author.account.bio|truncatewords:18 }}
+                    {{ post.author.bio|truncatewords:18 }}
                 </p>
-                <a href="#" class="author-more">
+                <a href="{% url 'accounts:user_detail' post.author.username %}" class="author-more">
                     View all posts →
                 </a>
             </div>

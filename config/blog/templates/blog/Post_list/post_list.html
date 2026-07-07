@@ -40,7 +40,7 @@
                             </p>
                             <div class="wrapper-flex">
                                 <div class="profile-wrapper">
-                                    <a href="#">
+                                    <a href="{% url 'accounts:user_detail' post.author.username %}">
                                         {% if post.author.avatar %}
                                         <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}"
                                              width="50" class="author-post-list">
@@ -51,7 +51,7 @@
                                     </a>
                                 </div>
                                 <div class="wrapper">
-                                    <a href="#" class="h4">
+                                    <a href="{% url 'accounts:user_detail' post.author.username %}" class="h4">
                                         {{ post.author }}</a>
                                     <div class="text-small">
                                         <ion-icon name="time-outline"></ion-icon>

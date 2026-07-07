@@ -40,11 +40,11 @@
                         </div>
                         {% endif %}
                         <div class="stat-item" id="followers-stat">
-                            <span class="stat-number">{{ user.rel_to_set.count }}</span>
+                            <span class="stat-number">{{ user.followers.count }}</span>
                             <span class="stat-label">Follower</span>
                         </div>
                         <div class="stat-item" id="following-stat">
-                            <span class="stat-number">{{ user.rel_from_set.count }}</span>
+                            <span class="stat-number">{{ user.following.count }}</span>
                             <span class="stat-label">Followed</span>
                         </div>
                     </div>
@@ -137,26 +137,26 @@
 
                     <div class="sidebar">
                         <h3><i class="fas fa-users"></i>Followers</h3>
-                        {% with followers=user.rel_to_set.all %}
+                        {% with followers=user.follower_relations.all %}
                         {% if followers %}
                         <ul class="follow-list" id="followers-list">
                             {% for relation in followers|slice:":5" %}
                             <li class="follow-item">
-                                <a href="{% url 'accounts:user_detail' relation.user_from.username %}">
-                                    {% if relation.user_from.avatar %}
-                                    <img src="{{ relation.user_from.avatar.url }}"
-                                         alt="{{ relation.user_from.get_full_name }}"
+                                <a href="{% url 'accounts:user_detail' relation.follower.username %}">
+                                    {% if relation.follower.avatar %}
+                                    <img src="{{ relation.follower.avatar.url }}"
+                                         alt="{{ relation.follower.get_full_name }}"
                                          class="follow-avatar">
                                     {% else %}
                                     <i class="fas fa-user-circle" style="font-size: 2rem; color: var(--fg3);"></i>
                                     {% endif %}
                                 </a>
                                 <div class="follow-info">
-                                    <a href="{% url 'accounts:user_detail' relation.user_from.username %}">
+                                    <a href="{% url 'accounts:user_detail' relation.follower.username %}">
                                         <div class="follow-name">
-                                            {{ relation.user_from.get_full_name|default:relation.user_from.username }}
+                                            {{ relation.follower.get_full_name|default:relation.follower.username }}
                                         </div>
-                                        <div class="follow-username">@{{ relation.user_from.username }}</div>
+                                        <div class="follow-username">@{{ relation.follower.username }}</div>
                                     </a>
                                 </div>
                             </li>
@@ -171,26 +171,26 @@
                         {% endwith %}
 
                         <h3 style="margin-top: 2rem;"><i class="fas fa-user-friends"></i>Following</h3>
-                        {% with following=user.rel_from_set.all %}
+                        {% with following=user.following_relations.all %}
                         {% if following %}
                         <ul class="follow-list" id="following-list">
                             {% for relation in following|slice:":5" %}
                             <li class="follow-item">
-                                <a href="{% url 'accounts:user_detail' relation.user_to.username %}">
-                                    {% if relation.user_to.avatar %}
-                                    <img src="{{ relation.user_to.avatar.url }}"
-                                         alt="{{ relation.user_to.get_full_name }}"
+                                <a href="{% url 'accounts:user_detail' relation.following.username %}">
+                                    {% if relation.following.avatar %}
+                                    <img src="{{ relation.following.avatar.url }}"
+                                         alt="{{ relation.following.get_full_name }}"
                                          class="follow-avatar">
                                     {% else %}
                                     <i class="fas fa-user-circle" style="font-size: 2rem; color: var(--fg3);"></i>
                                     {% endif %}
                                 </a>
                                 <div class="follow-info">
-                                    <a href="{% url 'accounts:user_detail' relation.user_to.username %}">
+                                    <a href="{% url 'accounts:user_detail' relation.following.username %}">
                                         <div class="follow-name">
-                                            {{ relation.user_to.get_full_name|default:relation.user_to.username }}
+                                            {{ relation.following.get_full_name|default:relation.following.username }}
                                         </div>
-                                        <div class="follow-username">@{{ relation.user_to.username }}</div>
+                                        <div class="follow-username">@{{ relation.following.username }}</div>
                                     </a>
                                 </div>
                             </li>
@@ -214,7 +214,7 @@
         const userId = this.getAttribute('data-user-id');
         const followBtn = this;
 
-        fetch('#', {
+        fetch('{% url "accounts:user_follow" %}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

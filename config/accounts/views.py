@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 from blog.models import Post
 from .forms import *
 from .email_service import send_email_thread
@@ -152,3 +154,34 @@ def user_detail(request, username):
     else:
         user.published_posts = Post.published.none()
     return render(request, 'user/user_detail.html', {'user': user})
+
+
+@login_required
+@require_POST
+def user_follow(request):
+    user_id = request.POST.get('id')
+    if user_id:
+        try:
+            user = User.objects.get(id=user_id)
+            if request.user in user.followers.all():
+                UserFollow.objects.filter(follower=request.user, following=user).delete()
+                follow = False
+            else:
+                UserFollow.objects.get_or_create(follower=request.user, following=user)
+                follow = True
+            following_count = user.following.count()
+            followers_count = user.followers.count()
+            return JsonResponse({
+                'follow': follow,
+                'following_count': following_count,
+                'followers_count': followers_count,
+            })
+
+        except User.DoesNotExist:
+            return JsonResponse({
+                'error': 'User Does Not Request',
+            })
+
+    return JsonResponse({
+        'error': 'Invalid Request'
+    })

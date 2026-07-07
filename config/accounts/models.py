@@ -14,6 +14,8 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True, verbose_name='Avatar')
     job = models.CharField(max_length=100, blank=True, null=True, verbose_name='job')
     phone = models.CharField(max_length=11, blank=True, null=True, verbose_name='Phone Number')
+    following = models.ManyToManyField('self', through='UserFollow', related_name='followers', symmetrical=False,
+                                       verbose_name='Following')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='Date of birth')
 
     class Meta:
@@ -40,3 +42,22 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.subject
+
+
+class UserFollow(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following_relations',
+                                 verbose_name='Follower')
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower_relations',
+                                  verbose_name='Following')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at')
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['-created_at']),
+        ]
+        ordering = ['-created_at']
+        verbose_name = 'Follower'
+        verbose_name_plural = 'Followers'
+
+    def __str__(self):
+        return f'{self.follower} follows {self.following}'

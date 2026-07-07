@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="latest-card-footer">
-                        <a href="#"
+                        <a href="{% url 'accounts:user_detail' post.author.username %}"
                            class="latest-author-info">
                             {% if post.author.avatar %}
                             <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}"
