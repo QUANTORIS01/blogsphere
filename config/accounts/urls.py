@@ -20,5 +20,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('contact/', views.contact, name='contact'),
     path('dashboard/edit/', views.edit_account, name='edit_account'),
+    path('users/', views.user_list, name='user_list'),
 
 ]

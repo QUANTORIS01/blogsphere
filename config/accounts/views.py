@@ -127,3 +127,15 @@ def edit_account(request):
         'user_form': user_form,
     }
     return render(request, 'registration/edit_account.html', context)
+
+
+@login_required
+def user_list(request):
+    users = User.objects.filter(is_active=True)
+    for user in users:
+        user.published_posts = Post.published.filter(author=user)
+        user.draft_posts = Post.draft.filter(author=user)
+    context = {
+        'users': users,
+    }
+    return render(request, 'user/user_list.html', context)
