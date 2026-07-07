@@ -1,0 +1,277 @@
+{% extends 'parent/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/user/user_detail.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+{% block title %}{{ user.get_full_name|default:user.username }}{% endblock %}
+{% block content %}
+<main>
+    <div class="main">
+        <div class="container">
+            <div class="user-detail-container">
+                <div class="profile-header">
+                    {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" alt="{{ user.get_full_name }}" class="user-avatar">
+                    {% else %}
+                    <i class="fas fa-user-circle fa-3x"
+                       style="color: var(--fg3); margin: 0 auto 1.5rem; display: block;"></i>
+                    {% endif %}
+
+                    <h1 class="user-fullname">{{ user.get_full_name|default:user.username }}</h1>
+                    <p class="user-username">@{{ user.username }}</p>
+                    <span class="user-role {{ user.role }}">{{ user.get_role_display }}</span>
+
+                    <p class="user-bio">{{ user.bio|default:"No biography has been recorded for this user." }}</p>
+
+                    <div class="user-stats">
+                        {% if user.role in 'author,admin' %}
+                        <div class="stat-item">
+                            <span class="stat-number">{{ user.published_posts.count }}</span>
+                            <span class="stat-label">Published post</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">{{ user.draft_posts.count }}</span>
+                            <span class="stat-label">Pending post</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">{{ user.rejected_posts.count }}</span>
+                            <span class="stat-label">Rejected post</span>
+                        </div>
+                        {% endif %}
+                        <div class="stat-item" id="followers-stat">
+                            <span class="stat-number">{{ user.rel_to_set.count }}</span>
+                            <span class="stat-label">Follower</span>
+                        </div>
+                        <div class="stat-item" id="following-stat">
+                            <span class="stat-number">{{ user.rel_from_set.count }}</span>
+                            <span class="stat-label">Followed</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        {% if user.role in 'author,admin' %}
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-file-alt"></i> View posts
+                        </a>
+                        {% endif %}
+
+                        {% if user != request.user %}
+                        <button class="btn btn-follow {% if request.user in user.followers.all %}unfollow{% endif %}"
+                                id="follow-btn" data-user-id="{{ user.id }}">
+                            <i class="fas fa-user-plus"></i>
+                            {% if request.user in user.followers.all %}
+                            Unfollow
+                            {% else %}
+                            Follow
+                            {% endif %}
+                        </button>
+                        {% endif %}
+
+
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fas fa-envelope"></i>Send Message
+                        </a>
+                    </div>
+                </div>
+
+                <div class="user-content">
+                    <div class="content-section">
+                        {% if user.role in 'author,admin' %}
+                        <div class="content-header">
+                            <h2><i class="fas fa-file-alt"></i>Latest Posts</h2>
+                            <a href="#" class="btn btn-secondary">
+                                <i class="fas fa-list"></i>View all
+                            </a>
+                        </div>
+
+                        {% if user.published_posts.exists %}
+                        <div class="content-grid">
+                            {% for post in user.published_posts.all|slice:":6" %}
+                            <div class="post-card">
+                                {% if post.banner %}
+                                <div class="post-image">
+                                    <a href="{{ post.get_absolute_url }}">
+                                        <img src="{{ post.banner.url }}" alt="{{ post.title }}">
+                                    </a>
+                                </div>
+                                {% endif %}
+
+                                <div class="post-content">
+                                    <a href="{{ post.get_absolute_url }}">
+                                        <h3 class="post-title">{{ post.title }}</h3>
+                                    </a>
+                                    <div class="post-meta">
+                                        <span>{{ post.publish|date:'Y/m/d' }}</span>
+                                        <span>{{ post.visits }} Visit</span>
+                                    </div>
+                                    <div class="post-actions">
+                                        <div class="post-action">
+                                            <i class="fas fa-heart"></i>
+                                            <span>{{ post.likes.count }}</span>
+                                        </div>
+                                        <div class="post-action">
+                                            <i class="fas fa-comment"></i>
+                                            <span>{{ post.comments.count }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-file-alt"></i>
+                            <h3>There are no posts.</h3>
+                            <p>This user has not published any posts yet.</p>
+                        </div>
+                        {% endif %}
+                        {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-user"></i>
+                            <h3>Regular user</h3>
+                            <p>This user has only basic features.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="sidebar">
+                        <h3><i class="fas fa-users"></i>Followers</h3>
+                        {% with followers=user.rel_to_set.all %}
+                        {% if followers %}
+                        <ul class="follow-list" id="followers-list">
+                            {% for relation in followers|slice:":5" %}
+                            <li class="follow-item">
+                                <a href="{% url 'accounts:user_detail' relation.user_from.username %}">
+                                    {% if relation.user_from.avatar %}
+                                    <img src="{{ relation.user_from.avatar.url }}"
+                                         alt="{{ relation.user_from.get_full_name }}"
+                                         class="follow-avatar">
+                                    {% else %}
+                                    <i class="fas fa-user-circle" style="font-size: 2rem; color: var(--fg3);"></i>
+                                    {% endif %}
+                                </a>
+                                <div class="follow-info">
+                                    <a href="{% url 'accounts:user_detail' relation.user_from.username %}">
+                                        <div class="follow-name">
+                                            {{ relation.user_from.get_full_name|default:relation.user_from.username }}
+                                        </div>
+                                        <div class="follow-username">@{{ relation.user_from.username }}</div>
+                                    </a>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-users"></i>
+                            <p>There are no followers.</p>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+
+                        <h3 style="margin-top: 2rem;"><i class="fas fa-user-friends"></i>Following</h3>
+                        {% with following=user.rel_from_set.all %}
+                        {% if following %}
+                        <ul class="follow-list" id="following-list">
+                            {% for relation in following|slice:":5" %}
+                            <li class="follow-item">
+                                <a href="{% url 'accounts:user_detail' relation.user_to.username %}">
+                                    {% if relation.user_to.avatar %}
+                                    <img src="{{ relation.user_to.avatar.url }}"
+                                         alt="{{ relation.user_to.get_full_name }}"
+                                         class="follow-avatar">
+                                    {% else %}
+                                    <i class="fas fa-user-circle" style="font-size: 2rem; color: var(--fg3);"></i>
+                                    {% endif %}
+                                </a>
+                                <div class="follow-info">
+                                    <a href="{% url 'accounts:user_detail' relation.user_to.username %}">
+                                        <div class="follow-name">
+                                            {{ relation.user_to.get_full_name|default:relation.user_to.username }}
+                                        </div>
+                                        <div class="follow-username">@{{ relation.user_to.username }}</div>
+                                    </a>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-user-friends"></i>
+                            <p>There are no accounts being followed.</p>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    document.getElementById('follow-btn')?.addEventListener('click', function() {
+        const userId = this.getAttribute('data-user-id');
+        const followBtn = this;
+
+        fetch('#', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: `id=${userId}`
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.follow !== undefined) {
+                if (data.follow) {
+                    followBtn.classList.add('unfollow');
+                    followBtn.innerHTML = '<i class="fas fa-user-minus"></i> Unfollow';
+                } else {
+                    followBtn.classList.remove('unfollow');
+                    followBtn.innerHTML = '<i class="fas fa-user-plus"></i> Follow';
+                }
+
+                document.getElementById('followers-stat').querySelector('.stat-number').textContent = data.followers_count;
+
+                updateFollowersList(userId, data.follow);
+            } else {
+                console.error('Error:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Network Error:', error);
+            alert('Error performing the follow operation.');
+        });
+    });
+
+    function updateFollowersList(targetUserId, isFollowing) {
+        if (targetUserId == "{{ user.id }}") {
+            fetch(`{% url 'accounts:user_detail' user.username %}`)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    const newFollowersList = doc.querySelector('#followers-list');
+                    if (newFollowersList) {
+                        document.getElementById('followers-list').innerHTML = newFollowersList.innerHTML;
+                    }
+
+                    const newFollowingList = doc.querySelector('#following-list');
+                    if (newFollowingList) {
+                        document.getElementById('following-list').innerHTML = newFollowingList.innerHTML;
+                    }
+                })
+                .catch(error => console.error('Error updating lists:', error));
+        }
+    }
+</script>
+
+{% endblock %}

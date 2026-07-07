@@ -3,6 +3,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 from blog.models import Post
 from .forms import *
 from .email_service import send_email_thread
@@ -139,3 +140,15 @@ def user_list(request):
         'users': users,
     }
     return render(request, 'user/user_list.html', context)
+
+
+@login_required
+def user_detail(request, username):
+    user = get_object_or_404(User, username=username, is_active=True)
+    if user.role in ['author', 'admin']:
+        user.published_posts = Post.published.filter(author=user)
+        user.draft_posts = Post.draft.filter(author=user)
+        user.rejected_posts = Post.rejected.filter(author=user)
+    else:
+        user.published_posts = Post.published.none()
+    return render(request, 'user/user_detail.html', {'user': user})
