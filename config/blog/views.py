@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.db import transaction
 from django.db.models import Count, F, Q
 from django.http import HttpResponse
+from django.contrib.auth.decorators import user_passes_test
 from accounts.email_service import send_email_thread
 from .forms import *
 from .models import *
@@ -345,3 +346,28 @@ def post_detail_rejected(request, pk):
         return render(request, 'blog/Detail/post_detail_rejected.html', {'post': post})
     else:
         return HttpResponse('Unauthorized access')
+
+
+def is_admin_or_owner(user):
+    return user.is_authenticated and user.role in ['admin']
+
+
+@user_passes_test(is_admin_or_owner)
+def change_post_status(request, post_id):
+    if request.method != 'POST':
+        return HttpResponseForbidden()
+    post = get_object_or_404(Post, id=post_id)
+    new_status = request.POST.get('status')
+    allowed_statuses = [
+        Post.Status.PUBLISH,
+        Post.Status.DRAFT,
+        Post.Status.REJECT,
+    ]
+    if new_status not in allowed_statuses:
+        return HttpResponseForbidden()
+    if new_status == Post.Status.REJECT:
+        reason_rejected = request.POST.get('reason_rejected')
+        post.reason_rejected = reason_rejected
+    post.status = new_status
+    post.save(update_fields=['status', 'reason_rejected'])
+    return redirect('accounts:dashboard')

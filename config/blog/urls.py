@@ -21,4 +21,5 @@ urlpatterns = [
     path('author-requests/', views.all_author_requests, name='all_author_requests'),
     path('post/detail-draft/<int:pk>', views.post_detail_draft, name='post_detail_draft'),
     path('post/detail-reject/<int:pk>', views.post_detail_rejected, name='post_detail_reject'),
+    path('posts/status/<int:post_id>/', views.change_post_status, name='change_post_status'),
 ]

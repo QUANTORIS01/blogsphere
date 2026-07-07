@@ -52,6 +52,7 @@ class Post(models.Model):
     saved_by = models.ManyToManyField(User, related_name='saved_posts', blank=True, verbose_name='Saved by')
     tags = TaggableManager(verbose_name='Tags')
     likes = models.ManyToManyField(User, related_name='liked_posts', blank=True, verbose_name='Likes')
+    reason_rejected = models.TextField(null=True, blank=True, verbose_name='Reason for rejection')
     total_likes = models.PositiveIntegerField(default=0, verbose_name='Number of likes')
     read_time = models.PositiveIntegerField(default=0, verbose_name='Reading time')
     visits = models.PositiveIntegerField(default=0, verbose_name='Number of views')

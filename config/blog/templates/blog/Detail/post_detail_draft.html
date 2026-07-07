@@ -50,7 +50,7 @@
 
             <div class="post-actions">
                 {% if user.role == 'admin' %}
-                <form method="POST" action="#" class="post-status">
+                <form method="POST" action="{% url 'blog:change_post_status' post.id %}" class="post-status">
                     {% csrf_token %}
                     <button type="submit" name="status" class="btn-action btn-publish" value="PB">Published</button>
                     <button type="button" class="btn-action btn-reject" onclick="showRejectionModal()">Reject</button>
@@ -60,7 +60,7 @@
                     <div class="modal-content">
                         <span class="close" onclick="closeRejectionModal()">&times;</span>
                         <h3>Reason for post rejection</h3>
-                        <form method="POST" action="#">
+                        <form method="POST" action="{% url 'blog:change_post_status' post.id %}">
                             {% csrf_token %}
                             <input type="hidden" name="status" value="RJ">
                             <textarea name="reason_rejected" placeholder="Enter the reason for rejecting the post..." required></textarea>
