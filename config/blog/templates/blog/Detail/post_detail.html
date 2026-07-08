@@ -13,7 +13,7 @@
             <div class="blog">
                 <h2 class="h2">{{ post.title }}</h2>
                 <div class="post-actions">
-                    <button class="action-btn btn-like {% if user in post.likes.all %}active{% endif %}"
+                    <button type="button" class="action-btn btn-like {% if user in post.likes.all %}active{% endif %}"
                             id="like-btn-{{ post.id }}" data-post-id="{{ post.id }}">
                         <i class="{% if user in post.likes.all %}fas fa-heart{% else %}far fa-heart{% endif %}"
                            id="heart-icon-{{ post.id }}"
@@ -84,6 +84,21 @@
 
 </main>
 <script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
     document.querySelectorAll('.btn-like').forEach(button => {
         button.addEventListener('click', function () {
             const postId = this.getAttribute('data-post-id');
@@ -93,10 +108,11 @@
             fetch('{% url "blog:like_post" %}', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    'X-CSRFToken': csrftoken
                 },
-                body: `post_id=${postId}`
+                body: new URLSearchParams({
+                    post_id: postId
+                })
             })
                 .then(response => response.json())
                 .then(data => {
