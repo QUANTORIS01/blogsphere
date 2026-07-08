@@ -14,7 +14,8 @@
                     {% if author.avatar %}
                     <img src="{{ author.avatar.url }}" alt="{{ author.username }}" class="author-avatar">
                     {% else %}
-                    <img src="{% static 'images/Default-profile.jpg' %}" alt="{{ author.username }}" class="author-avatar">
+                    <img src="{% static 'images/Default-profile.jpg' %}" alt="{{ author.username }}"
+                         class="author-avatar">
                     {% endif %}
                 </div>
 
@@ -28,7 +29,9 @@
                             <div class="stat-label">Post</div>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-value">{{ author.followers.count }}</div>
+                            <div class="stat-value" id="followers-count">
+                                {{ author.followers.count }}
+                            </div>
                             <div class="stat-label">Follower</div>
                         </div>
                         <div class="stat-box">
@@ -39,14 +42,18 @@
 
                     <div class="author-actions">
                         {% if user != author %}
-                        <a href="{% url 'accounts:user_follow' %}?id={{ author.id }}"
-                           class="follow-btn {% if user in author.followers.all %}following{% endif %}">
+                        <button type="button"
+                                class="follow-btn {% if user in author.followers.all %}following{% endif %}"
+                                data-user-id="{{ author.id }}"
+                                id="follow-btn-{{ author.id }}">
                             {% if user in author.followers.all %}
-                            <i class="fas fa-check"></i>Followed
+                            <i class="fas fa-check"></i>
+                            <span>Followed</span>
                             {% else %}
-                            <i class="fas fa-plus"></i>Follow
+                            <i class="fas fa-plus"></i>
+                            <span>Follow</span>
                             {% endif %}
-                        </a>
+                        </button>
                         {% endif %}
                         <a href="{% url 'accounts:user_detail' author.username %}" class="profile-btn">
                             <i class="fas fa-user"></i>View Profile
@@ -66,74 +73,170 @@
             </div>
 
             {% if posts %}
-                <div class="posts-grid">
-                    {% for post in posts %}
-                    <article class="post-card">
+            <div class="posts-grid">
+                {% for post in posts %}
+                <article class="post-card">
+                    <a href="{{ post.get_absolute_url }}" class="post-link">
+                        <div class="post-image-wrapper">
+                            {% if post.banner %}
+                            <img src="{{ post.banner.url }}" alt="{{ post.title }}" class="post-image">
+                            {% else %}
+                            <img src="{% static 'images/Default-list-post.jpg' %}" alt="Post" class="post-image">
+                            {% endif %}
+                            <div class="post-category-badge">{{ post.category }}</div>
+                        </div>
+                    </a>
+
+                    <div class="post-content-wrapper">
                         <a href="{{ post.get_absolute_url }}" class="post-link">
-                            <div class="post-image-wrapper">
-                                {% if post.banner %}
-                                <img src="{{ post.banner.url }}" alt="{{ post.title }}" class="post-image">
-                                {% else %}
-                                <img src="{% static 'images/Default-list-post.jpg' %}" alt="Post" class="post-image">
-                                {% endif %}
-                                <div class="post-category-badge">{{ post.category }}</div>
-                            </div>
+                            <h3 class="post-title">{{ post.title }}</h3>
                         </a>
 
-                        <div class="post-content-wrapper">
-                            <a href="{{ post.get_absolute_url }}" class="post-link">
-                                <h3 class="post-title">{{ post.title }}</h3>
-                            </a>
+                        <p class="post-excerpt">
+                            {{ post.description|secure_truncate:120 }}
+                        </p>
 
-                            <p class="post-excerpt">
-                                {{ post.description|secure_truncate:120 }}
-                            </p>
+                        <div class="post-meta-bar">
+                            <div class="post-author">
+                                <a href="{% url 'accounts:user_detail' post.author.username %}" class="author-link">
+                                    {% if post.author.avatar %}
+                                    <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}"
+                                         class="author-avatar-mini">
+                                    {% else %}
+                                    <img src="{% static 'images/Default-profile.jpg' %}"
+                                         alt="{{ post.author.username }}" class="author-avatar-mini">
+                                    {% endif %}
+                                    <span class="author-name">{{ post.author.username }}</span>
+                                </a>
+                            </div>
 
-                            <div class="post-meta-bar">
-                                <div class="post-author">
-                                    <a href="{% url 'accounts:user_detail' post.author.username %}" class="author-link">
-                                        {% if post.author.avatar %}
-                                        <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}" class="author-avatar-mini">
-                                        {% else %}
-                                        <img src="{% static 'images/Default-profile.jpg' %}" alt="{{ post.author.username }}" class="author-avatar-mini">
-                                        {% endif %}
-                                        <span class="author-name">{{ post.author.username }}</span>
-                                    </a>
-                                </div>
-
-                                <div class="post-metrics">
+                            <div class="post-metrics">
                                     <span class="metric-item">
                                         <i class="fas fa-eye"></i> {{ post.visits }}
                                     </span>
-                                    <span class="metric-item">
+                                <span class="metric-item">
                                         <i class="fas fa-heart"></i> {{ post.likes.count }}
                                     </span>
-                                    <span class="metric-item">
+                                <span class="metric-item">
                                         <i class="fas fa-comment"></i> {{ post.comments.count }}
                                     </span>
-                                </div>
-                            </div>
-
-                            <div class="post-date">
-                                <i class="far fa-calendar"></i>
-                                {{ post.publish|date:'Y/m/d' }}
                             </div>
                         </div>
-                    </article>
-                    {% endfor %}
-                </div>
 
-                {% include "blog/Post_list/pagination.html" with page=posts %}
-            {% else %}
-                <div class="empty-state">
-                    <div class="empty-icon">
-                        <i class="fas fa-inbox"></i>
+                        <div class="post-date">
+                            <i class="far fa-calendar"></i>
+                            {{ post.publish|date:'Y/m/d' }}
+                        </div>
                     </div>
-                    <h3>No posts found.</h3>
-                    <p>The author has not published any posts yet.</p>
+                </article>
+                {% endfor %}
+            </div>
+
+            {% include "blog/Post_list/pagination.html" with page=posts %}
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-inbox"></i>
                 </div>
+                <h3>No posts found.</h3>
+                <p>The author has not published any posts yet.</p>
+            </div>
             {% endif %}
         </div>
     </div>
 </main>
+
+<script>
+
+    function getCookie(name) {
+        let cookieValue = null;
+
+        if (document.cookie && document.cookie !== '') {
+
+            const cookies = document.cookie.split(';');
+
+            for (let i = 0; i < cookies.length; i++) {
+
+                const cookie = cookies[i].trim();
+
+                if (cookie.startsWith(name + '=')) {
+
+                    cookieValue = decodeURIComponent(
+                        cookie.substring(name.length + 1)
+                    );
+
+                    break;
+                }
+            }
+        }
+
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+
+    document.querySelectorAll('.follow-btn').forEach(button => {
+
+        button.addEventListener('click', function () {
+
+            const userId = this.dataset.userId;
+            const btn = this;
+
+            fetch('{% url "accounts:user_follow" %}', {
+
+                method: 'POST',
+
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+
+                body: new URLSearchParams({
+                    id: userId
+                })
+
+            })
+
+                .then(response => response.json())
+
+                .then(data => {
+
+                    if (data.error) {
+                        console.error(data.error);
+                        return;
+                    }
+
+                    if (data.follow) {
+
+                        btn.classList.add('following');
+
+                        btn.innerHTML ='<i class="fas fa-check"></i> <span>Followed</span>';
+
+                    } else {
+
+                        btn.classList.remove('following');
+
+                        btn.innerHTML ='<i class="fas fa-plus"></i> <span>Follow</span>';
+                    }
+
+                    const followersCount =
+                        document.getElementById('followers-count');
+
+                    if (followersCount) {
+                        followersCount.textContent =
+                            data.followers_count;
+                    }
+
+                })
+
+                .catch(error => {
+                    console.error(error);
+                });
+
+        });
+
+    });
+
+</script>
 {% endblock %}
