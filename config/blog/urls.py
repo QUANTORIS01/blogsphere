@@ -22,4 +22,5 @@ urlpatterns = [
     path('post/detail-draft/<int:pk>', views.post_detail_draft, name='post_detail_draft'),
     path('post/detail-reject/<int:pk>', views.post_detail_rejected, name='post_detail_reject'),
     path('posts/status/<int:post_id>/', views.change_post_status, name='change_post_status'),
+    path('posts/author/<str:username>/', views.post_list_author, name='post_list_author'),
 ]

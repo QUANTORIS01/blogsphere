@@ -1,0 +1,139 @@
+{% extends "parent/base.html" %}
+{% load static %}
+{% load blog_tags %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/blog/Post_list/post_list_author.css' %}">
+{% endblock %}
+{% block title %}{{ author.username }} - Posts{% endblock %}
+{% block content %}
+<main>
+    <div class="main">
+        <div class="author-profile-section">
+            <div class="author-profile-card">
+                <div class="author-avatar-wrapper">
+                    {% if author.avatar %}
+                    <img src="{{ author.avatar.url }}" alt="{{ author.username }}" class="author-avatar">
+                    {% else %}
+                    <img src="{% static 'images/Default-profile.jpg' %}" alt="{{ author.username }}" class="author-avatar">
+                    {% endif %}
+                </div>
+
+                <div class="author-bio">
+                    <h1 class="author-fullname">{{ author.get_full_name|default:author.username }}</h1>
+                    <h2 class="author-username">@{{ author.username }}</h2>
+
+                    <div class="author-stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-value">{{ posts.paginator.count }}</div>
+                            <div class="stat-label">Post</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">{{ author.followers.count }}</div>
+                            <div class="stat-label">Follower</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">{{ author.following.count }}</div>
+                            <div class="stat-label">Following</div>
+                        </div>
+                    </div>
+
+                    <div class="author-actions">
+                        {% if user != author %}
+                        <a href="{% url 'accounts:user_follow' %}?id={{ author.id }}"
+                           class="follow-btn {% if user in author.followers.all %}following{% endif %}">
+                            {% if user in author.followers.all %}
+                            <i class="fas fa-check"></i>Followed
+                            {% else %}
+                            <i class="fas fa-plus"></i>Follow
+                            {% endif %}
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'accounts:user_detail' author.username %}" class="profile-btn">
+                            <i class="fas fa-user"></i>View Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="posts-section">
+            <div class="section-header">
+                <h2 class="section-title">Latest posts from {{ author.get_full_name|default:author.username }}</h2>
+                <div class="post-count">
+                    <i class="fas fa-file-alt"></i>
+                    {{ posts.paginator.count }} Post
+                </div>
+            </div>
+
+            {% if posts %}
+                <div class="posts-grid">
+                    {% for post in posts %}
+                    <article class="post-card">
+                        <a href="{{ post.get_absolute_url }}" class="post-link">
+                            <div class="post-image-wrapper">
+                                {% if post.banner %}
+                                <img src="{{ post.banner.url }}" alt="{{ post.title }}" class="post-image">
+                                {% else %}
+                                <img src="{% static 'images/Default-list-post.jpg' %}" alt="Post" class="post-image">
+                                {% endif %}
+                                <div class="post-category-badge">{{ post.category }}</div>
+                            </div>
+                        </a>
+
+                        <div class="post-content-wrapper">
+                            <a href="{{ post.get_absolute_url }}" class="post-link">
+                                <h3 class="post-title">{{ post.title }}</h3>
+                            </a>
+
+                            <p class="post-excerpt">
+                                {{ post.description|secure_truncate:120 }}
+                            </p>
+
+                            <div class="post-meta-bar">
+                                <div class="post-author">
+                                    <a href="{% url 'accounts:user_detail' post.author.username %}" class="author-link">
+                                        {% if post.author.avatar %}
+                                        <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}" class="author-avatar-mini">
+                                        {% else %}
+                                        <img src="{% static 'images/Default-profile.jpg' %}" alt="{{ post.author.username }}" class="author-avatar-mini">
+                                        {% endif %}
+                                        <span class="author-name">{{ post.author.username }}</span>
+                                    </a>
+                                </div>
+
+                                <div class="post-metrics">
+                                    <span class="metric-item">
+                                        <i class="fas fa-eye"></i> {{ post.visits }}
+                                    </span>
+                                    <span class="metric-item">
+                                        <i class="fas fa-heart"></i> {{ post.likes.count }}
+                                    </span>
+                                    <span class="metric-item">
+                                        <i class="fas fa-comment"></i> {{ post.comments.count }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="post-date">
+                                <i class="far fa-calendar"></i>
+                                {{ post.publish|date:'Y/m/d' }}
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+
+                {% include "blog/Post_list/pagination.html" with page=posts %}
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-inbox"></i>
+                    </div>
+                    <h3>No posts found.</h3>
+                    <p>The author has not published any posts yet.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}

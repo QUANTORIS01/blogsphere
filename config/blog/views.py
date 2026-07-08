@@ -371,3 +371,21 @@ def change_post_status(request, post_id):
     post.status = new_status
     post.save(update_fields=['status', 'reason_rejected'])
     return redirect('accounts:dashboard')
+
+
+def post_list_author(request, username):
+    author = get_object_or_404(User, username=username)
+    posts = Post.published.filter(author=author)
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page', 1)
+    try:
+        posts = paginator.get_page(page_number)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    context = {
+        'posts': posts,
+        'author': author,
+    }
+    return render(request, 'blog/Post_list/post_list_author.html', context)

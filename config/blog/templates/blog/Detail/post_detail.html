@@ -65,7 +65,7 @@
             <img src="{% static 'images/Default-profile.jpg' %}" alt="author" class="author-img">
             {% endif %}
             <div class="author-info">
-                <a href="#">
+                <a href="{% url 'blog:post_list_author' post.author.username %}">
                     <h3 class="author-name">Author:{{ post.author }}</h3>
                 </a>
                 <p class="author-role">Biography:</p>
