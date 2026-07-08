@@ -37,8 +37,9 @@ def active_author(count=3):
 
     for author in active_authors:
         try:
-            from django.contrib.auth.models import User
+            from django.contrib.auth import get_user_model
             from accounts.models import UserFollow
+            User = get_user_model()
             user = User.objects.get(id=author['author__id'])
             if user.avatar:
                 author['avatar_url'] = user.avatar.url
