@@ -51,12 +51,6 @@ def post_detail(request, pk):
     similar_post = similar_post.annotate(same_tags=Count('tags')).order_by('-same_tags', '-created')[:4]
     visit_post = request.session.get('visit_post', [])
     comments = post.comments.filter(parent=None).order_by('-created')
-    if post.pk not in visit_post:
-        post.visits = F('visits') + 1
-        post.save(update_fields=['visits'])
-        visit_post.append(post.pk)
-        request.session['visit_post'] = visit_post
-        post.refresh_from_db()
     if request.method == 'POST':
         parent_id = request.POST.get('parent_id')
         parent_obj = None
@@ -89,6 +83,14 @@ def post_detail(request, pk):
             form = CommentForm()
         else:
             form = GuestCommentForm()
+    
+    if post.pk not in visit_post:
+        post.visits = F('visits') + 1
+        post.save(update_fields=['visits'])
+        visit_post.append(post.pk)
+        request.session['visit_post'] = visit_post
+        post.refresh_from_db()
+
     context = {
         'post': post,
         'similar_post': similar_post,
