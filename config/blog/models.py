@@ -125,3 +125,46 @@ class AuthorRequest(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.status}'
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Post')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='comments',
+                             verbose_name='Author')
+    name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Guest Name')
+    body = models.TextField(verbose_name='Comment text')
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies',
+                               verbose_name='Response to')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Creation Date')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Last updated')
+    level = models.PositiveIntegerField(default=0, verbose_name='Conceptual level')
+
+    class Meta:
+        ordering = ['created']
+        indexes = [
+            models.Index(fields=['created'])
+        ]
+        verbose_name = 'Opinion'
+        verbose_name_plural = 'Comments'
+
+    def save(self, *args, **kwargs):
+        if self.parent:
+            self.level = self.parent.level + 1
+        else:
+            self.level = 0
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        if self.user:
+            return f'{self.user.username}: {self.post}'
+        return f'{self.name}: {self.post}'
+
+    def get_all_replies(self):
+        replies = []
+        for reply in self.replies.all():
+            replies.append(reply)
+            replies.extend(reply.get_all_replies())
+        return replies
+
+    def can_reply(self):
+        return self.level < 4

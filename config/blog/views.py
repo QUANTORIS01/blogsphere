@@ -50,17 +50,52 @@ def post_detail(request, pk):
     similar_post = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
     similar_post = similar_post.annotate(same_tags=Count('tags')).order_by('-same_tags', '-created')[:4]
     visit_post = request.session.get('visit_post', [])
+    comments = post.comments.filter(parent=None).order_by('-created')
     if post.pk not in visit_post:
         post.visits = F('visits') + 1
         post.save(update_fields=['visits'])
         visit_post.append(post.pk)
         request.session['visit_post'] = visit_post
         post.refresh_from_db()
+    if request.method == 'POST':
+        parent_id = request.POST.get('parent_id')
+        parent_obj = None
+        if parent_id:
+            try:
+                parent_obj = Comment.objects.get(id=parent_id)
+                if not parent_obj.can_reply():
+                    parent_obj = None
+            except Comment.DoesNotExist:
+                parent_obj = None
+
+        if request.user.is_authenticated:
+            form = CommentForm(request.POST)
+            author_field = 'user'
+            author_value = request.user
+        else:
+            form = GuestCommentForm(request.POST)
+            author_field = 'name'
+            author_value = request.POST.get('name')
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            setattr(comment, author_field, author_value)
+            comment.parent = parent_obj
+            comment.save()
+            return redirect(post.get_absolute_url())
+
+    else:
+        if request.user.is_authenticated:
+            form = CommentForm()
+        else:
+            form = GuestCommentForm()
     context = {
         'post': post,
         'similar_post': similar_post,
         'model_name': 'blog.post',
         'object_id': post.pk,
+        'comments': comments,
+        'form': form,
     }
     return render(request, 'blog/Detail/post_detail.html', context)
 

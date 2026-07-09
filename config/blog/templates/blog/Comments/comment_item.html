@@ -1,0 +1,42 @@
+{% load static %}
+{% load math_extras %}
+<div class="comment"
+     style="margin-right:{{ comment.level|multiply:20}}px;
+            border-left-color:{% if comment.level == 1 %}var(--ac2){% elif comment.level == 2 %}var(--fg3){% elif comment.level == 3 %}var(--fg2){% elif comment.level >= 4 %}var(--ac){% else %}var(--ac){% endif %};">
+    <div class="comment-header">
+        {% if comment.user.avatar %}
+            <img src="{{ comment.user.avatar.url }}" class="comment-avatar">
+        {% else %}
+            <img src="{% static 'images/Default-profile.jpg' %}" class="comment-avatar">
+        {% endif %}
+        <div class="comment-meta">
+            {% if comment.user %}
+            <span class="comment-author">{{ comment.user.username }}</span>
+            {% else %}
+            <span class="comment-author">{{ comment.name|default:'Guest' }}</span>
+            {% endif %}
+            <span class="comment-date">{{ comment.created|date:'Y/m/d_H:M' }}</span>
+        </div>
+    </div>
+    <p class="comment-body">{{ comment.body|linebreaks }}</p>
+    {% if comment.level < 4 %}
+    <button class="reply-btn" onclick="toggleReply({{ comment.id }})">Answer</button>
+    <form class="reply-form" id="reply-{{ comment.id }}" method="post" action="{% url 'blog:post_detail' post.pk %}">
+        {% csrf_token %}
+        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+        {% if user.is_authenticated %}
+        <textarea name="body" placeholder="Write your answer..." required></textarea>
+        {% else %}
+        <input type="text" name="name" placeholder="Enter your name..."
+               style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--act2); background: var(--bg); color: var(--fg); font-family: 'Iranian Sans', sans-serif; margin-bottom: 15px; transition: all 0.3s ease;"
+               required>
+        <textarea name="body" placeholder="Write your answer..." required></textarea>
+        {% endif %}
+        <button type="submit" class="submit-reply">Send Response</button>
+    </form>
+    {% endif %}
+
+    {% for reply in comment.replies.all %}
+    {% include 'blog/Comments/comment_item.html' with comment=reply %}
+    {% endfor %}
+</div>

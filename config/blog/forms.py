@@ -42,3 +42,37 @@ class AuthorRequestForm(forms.ModelForm):
                 return phone
         else:
             raise forms.ValidationError('The phone number must not be empty.')
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']
+        widgets = {
+            'body': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Write your comment...'
+            })
+        }
+
+
+class GuestCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['name', 'body']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your name...',
+                'style': 'width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--act2); background: var(--bg); color: var(--fg); font-family: \'Iranian Sans\', sans-serif; margin-bottom: 15px; transition: all 0.3s ease;'
+            }),
+            'body': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Write your comment...'
+            })
+        }
+
+        labels = {
+            'name': 'Name',
+            'body': 'Opinion'
+        }

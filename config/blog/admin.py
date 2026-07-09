@@ -2,6 +2,11 @@ from django.contrib import admin
 from .models import *
 
 
+class CommentInline(admin.StackedInline):
+    model = Comment
+    extra = 0
+
+
 def draft_status(model_admin, request, queryset):
     result = queryset.update(status=Post.Status.DRAFT)
     model_admin.message_user(request, f'{result}The post status changed to draft.')
@@ -36,6 +41,7 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'publish'
     list_editable = ['status']
     list_display_links = ['title']
+    inlines = [CommentInline]
     actions = [draft_status, publish_status, reject_status]
 
     def get_queryset(self, request):
@@ -49,3 +55,10 @@ class AuthorRequestAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'phone', 'email']
     list_editable = ['status']
     readonly_fields = ['created', 'reviewed']
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'name', 'post', 'created']
+    list_filter = ['user', 'name', 'post']
+    search_fields = ['author__username', 'body']

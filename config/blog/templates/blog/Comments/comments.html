@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/blog/Comments/comments.css' %}">
+<section class="comments-section">
+    <h2 class="comments-title">User Reviews</h2>
+    <div class="comment-list">
+        {% for comment in comments %}
+        {% include 'blog/Comments/comment_item.html' with comment=comment %}
+        {% endfor %}
+    </div>
+    <form class="add-comment-form" method="post">
+        {% csrf_token %}
+        <h3>Submit a new comment</h3>
+        {{ form.as_p }}
+        <button type="submit" class="submit-comment">Send</button>
+    </form>
+</section>
+<script src="{% static 'js/comments.js' %}"></script>
