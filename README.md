@@ -1,51 +1,156 @@
 # Blogsphere
+A feature-rich blogging platform built with Django.<br>
+This project was originally developed during my Django learning journey and later refactored,<br> 
+documented, and improved as part of my portfolio.
 
-Blogsphere is one of my early Django projects, originally built during my backend development learning journey.
-
-The primary goal of this project was not visual design or frontend engineering. Instead, it was created to explore and understand Django fundamentals, authentication systems, database relationships, user roles, content management, and common web application patterns.
-
-At the time of development, my focus was heavily centered on backend architecture and learning Django's ecosystem. As a result, the frontend implementation was intentionally simple and functional rather than polished or production-oriented.
-
-Why are the commits so recent?
-
-Although the project itself was originally developed much earlier, it was never version-controlled with Git or published on GitHub at the time. During that stage of my learning journey, I had not yet adopted Git workflows or created a GitHub profile.
-
-This repository represents a reconstructed and documented version of that original work, allowing me to preserve the project, practice version control, and showcase an important milestone in my growth as a developer.
 
 ## Features
 
+### Authentication & User Management
 - Custom User Model
-- Authentication System
-- User Registration
-- Login & Logout
-- Password Reset via Email
-- Blog Posts
-- Post Detail Pages
-- Categories & Tags
+- Registration & Login
+- User Profiles
+- Edit Profile
+- Role-Based Access
+
+
+### Blogging System
+- Create Posts
+- Edit Posts
+- Delete Posts
+- Draft Support
+- Published Posts
+- Post Moderation Workflow
+
+
+### Author System
+- Author Request Submission
+- Request Review by Admin
+- Approve / Reject Requests
+- Email Notifications
+
+
+### Social Features
+- Follow / Unfollow Users
+- User Followers & Following Lists
+- Post Likes
+- Saved Posts
+
+
+### Comment System
 - Nested Comments
-- Role-Based Functionality
-- User Interactions
-- Template Inheritance
-- Django Admin Integration
+- Multi-level Replies
+- Comment Moderation
 
-## Project Status
 
-This project is preserved as a learning milestone and a reflection of my early Django experience.
+### Dashboard
+- Admin Dashboard
+- Author Dashboard
+- User Dashboard
 
-My current primary focus is the development of WSS Platform, a significantly larger full-stack project where I am applying the knowledge and experience gained from projects like Blogsphere.
 
-## Future improvements may include:
+### Search
+- Search Posts
+- Author Post Listing
 
-- Codebase refactoring
-- UI/UX redesign
-- Frontend modernization
-- Performance optimizations
-- Additional testing and documentation
 
-Learning Never Stops
+### Notifications
+- Email Notifications
+- Post Deletion Alerts
 
-Every project represents a snapshot of a developer at a specific point in time.
 
-Blogsphere reflects where my Django journey began.
+### Technical Features
+- Django Signals
+- AJAX / Fetch API
+- Custom Template Tags
+- CKEditor5 Integration
+- Media Uploads
 
-WSS Platform reflects where that journey is heading.
+
+## Technologies Used
+- Python
+- Django
+- SQLite
+- HTML
+- CSS
+- JavaScript
+- CKEditor5
+- Bootstrap
+
+
+## Project Structure
+`/accounts`<br>
+`/blog`<br>
+`/config`<br>
+`/media`<br>
+`/static`<br>
+`/templates`
+
+
+## Installation
+Clone the repository:
+```bash
+git clone https://github.com/QUANTORIS01/blogsphere.git
+```
+
+
+Create virtual environment:
+```bash
+python -m venv .venv
+```
+
+
+Activate environment:
+```bash
+source .venv/bin/activate
+```
+
+
+Install Dependencies:
+```bash
+pip install -r requirements.text
+```
+
+
+Run migrations:
+```bash
+python manage.py migrate
+```
+
+
+Run server:
+```bash
+pyhton manage.py runserver
+```
+
+
+## Learning Objectives
+```markdown
+This project was built as a practical Django learning project.
+The main goal was to gain hands-on experience with:
+
+- Django Models
+- Views
+- Forms
+- Authentication
+- Authorization
+- Signals
+- Template Tags
+- AJAX
+- Email Handling
+- Role Management
+- Content Moderation
+```
+
+
+## Future Improvements
+- Real-time notifications
+- REST API
+- Async tasks with Celery
+- Advanced search
+- Docker support
+- PostgreSQL support
+
+
+## Author
+Developed by QUANTORIS

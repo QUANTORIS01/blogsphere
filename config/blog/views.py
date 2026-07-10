@@ -10,7 +10,6 @@ from django.db import transaction
 from django.db.models import Count, F, Q
 from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
-from django.utils import timezone
 from accounts.email_service import send_email_thread
 from .forms import *
 from .models import *
