@@ -1,4 +1,3 @@
-import jdatetime
 import uuid
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -11,6 +10,7 @@ from django.db import transaction
 from django.db.models import Count, F, Q
 from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
+from django.utils import timezone
 from accounts.email_service import send_email_thread
 from .forms import *
 from .models import *
@@ -208,9 +208,9 @@ def secure_ckeditor_upload(request):
     if upload.size > max_size:
         return JsonResponse({'error': 'The file size exceeds 5 MB.'}, status=400)
     username = user.username
-    today_solar = jdatetime.date.today().strftime('%Y/%m/%d')
+    today = timezone.now().strftime('%Y/%m/%d')
     filename = f'{uuid.uuid4().hex}{ext}'
-    upload_path = os.path.join('uploads', 'ckeditor', username, today_solar, filename)
+    upload_path = os.path.join('uploads', 'ckeditor', today, username, filename)
     saved_path = default_storage.save(upload_path, upload)
     file_url = default_storage.url(saved_path)
     return JsonResponse({'uploaded': True, 'url': file_url})
